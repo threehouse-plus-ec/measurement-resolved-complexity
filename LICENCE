@@ -1,0 +1,64 @@
+# Split Licence Declaration
+
+**Endorsement Marker:** T(h)reehouse +EC voyage repository. Local candidate framework — T(h)reehouse +EC stewardship. No external endorsement implied.
+
+This repository follows the split licence architecture defined in the
+T(h)reehouse +EC Corporate Design blueprint, Section 0.3
+(`threehouse-plus-ec/cd-rules`, `blueprint-threehouse-CD.md`).
+
+Consumers must check the licence of the specific layer they are using; no
+single licence applies uniformly across the repository.
+
+## Layer map
+
+| Path | Layer | Licence | SPDX |
+|------|-------|---------|------|
+| `src/` | Infrastructure (code and tooling) | MIT | MIT |
+| `requirements.txt` | Infrastructure | MIT | MIT |
+| `figures/` | Handbook (design / data assets) | MIT | MIT |
+| `README.md` | Coastline (framework / method) | CC BY-SA 4.0 | CC-BY-SA-4.0 |
+| `VOYAGE_PLAN.md` | Coastline | CC BY-SA 4.0 | CC-BY-SA-4.0 |
+| `TASK_CARD.md` | Coastline | CC BY-SA 4.0 | CC-BY-SA-4.0 |
+| `stages/` | Coastline (per-stage notes and protocols) | CC BY-SA 4.0 | CC-BY-SA-4.0 |
+| `literature_search/` | Coastline (reconciled findings) | CC BY-SA 4.0 | CC-BY-SA-4.0 |
+| `docs/` | Coastline | CC BY-SA 4.0 | CC-BY-SA-4.0 |
+| `archive/` | Preserves the licence in force at deprecation | — | — |
+
+If a path is not listed, the enclosing folder's licence applies. When a folder
+contains mixed content, the more restrictive licence applies unless individual
+files carry their own header declarations.
+
+Canonical licence texts:
+
+- MIT — https://opensource.org/licenses/MIT
+- CC BY-SA 4.0 — https://creativecommons.org/licenses/by-sa/4.0/
+
+## MIT Licence (Infrastructure and Handbook layers)
+
+Copyright (c) 2026 Ulrich Warring and contributors
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+
+## CC BY-SA 4.0 (Coastline layer)
+
+Coastline content in this repository is licensed under the Creative Commons
+Attribution-ShareAlike 4.0 International License. You are free to share and
+adapt the material for any purpose, provided you give appropriate attribution
+and distribute your contributions under the same licence. Full terms:
+https://creativecommons.org/licenses/by-sa/4.0/legalcode

@@ -1,0 +1,15 @@
+# Core numerics
+numpy>=1.24
+scipy>=1.11
+
+# Quantum dynamics (optional but preferred; falls back to hand-rolled sparse)
+qutip>=4.7
+
+# Plotting
+matplotlib>=3.7
+
+# Optional: for faster linear algebra in sparse propagation
+# numba>=0.58
+
+# Development
+pytest>=7.0
