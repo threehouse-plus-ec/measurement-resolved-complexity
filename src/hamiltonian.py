@@ -89,3 +89,47 @@ def initial_state_down_vacuum(n_max: int) -> np.ndarray:
     psi = np.zeros(2 * mode_dim, dtype=complex)
     psi[mode_dim] = 1.0
     return psi
+
+
+def two_mode_hamiltonian(
+    Delta_1: float, Delta_2: float, g: float, n_max: int
+) -> sp.csr_matrix:
+    """Voyage §2.1 Hamiltonian at N=2, equal coupling on both modes.
+
+    H = Delta_1 a_1^dag a_1 + Delta_2 a_2^dag a_2
+        + g sigma_x (a_1 + a_1^dag) + g sigma_x (a_2 + a_2^dag)
+
+    Basis: kron(spin, mode_1, mode_2). State index (s, n1, n2) ->
+    s * (n_max+1)^2 + n1 * (n_max+1) + n2.
+    """
+    mode_dim = n_max + 1
+    a = annihilation(n_max)
+    a_dag = a.conj().T.tocsr()
+    num = (a_dag @ a).tocsr()
+    x_m = (a + a_dag).tocsr()
+    id_m = sp.eye(mode_dim, format="csr", dtype=complex)
+    id_spin = sp.eye(2, format="csr", dtype=complex)
+    sigma_x = sp.csr_matrix(np.array([[0.0, 1.0], [1.0, 0.0]], dtype=complex))
+
+    # Free-mode terms (act on spin x mode_1 x mode_2).
+    H_mode1 = Delta_1 * sp.kron(id_spin, sp.kron(num, id_m, format="csr"),
+                                format="csr")
+    H_mode2 = Delta_2 * sp.kron(id_spin, sp.kron(id_m, num, format="csr"),
+                                format="csr")
+
+    # Coupling terms.
+    H_coup1 = g * sp.kron(sigma_x, sp.kron(x_m, id_m, format="csr"),
+                          format="csr")
+    H_coup2 = g * sp.kron(sigma_x, sp.kron(id_m, x_m, format="csr"),
+                          format="csr")
+
+    return (H_mode1 + H_mode2 + H_coup1 + H_coup2).tocsr()
+
+
+def initial_state_up_vacuum_n2(n_max: int) -> np.ndarray:
+    """``|up> (x) |0>_1 (x) |0>_2`` at N=2, in the kron(spin, m1, m2) basis."""
+    mode_dim = n_max + 1
+    dim = 2 * mode_dim * mode_dim
+    psi = np.zeros(dim, dtype=complex)
+    psi[0] = 1.0
+    return psi

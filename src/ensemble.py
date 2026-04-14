@@ -36,6 +36,82 @@ def sample_detunings(
     return rng.normal(loc=Delta_nominal, scale=sigma_Delta, size=R)
 
 
+def run_ensemble_two_mode(
+    Delta1_values: np.ndarray,
+    Delta2_values: np.ndarray,
+    g: float,
+    n_max: int,
+    times: np.ndarray,
+) -> dict:
+    """Propagate an ensemble of N=2 trajectories, one per (Delta_1, Delta_2) pair.
+
+    Returns a dict with shape-(R, n_times) arrays for ``p``, ``n_eff_1``,
+    ``n_eff_2``, ``C`` (aggregate = log n_eff_1 + log n_eff_2), ``norm``.
+    """
+    from hamiltonian import initial_state_up_vacuum_n2, two_mode_hamiltonian
+    from observables import (
+        aggregate_complexity_series,
+        n_eff_per_mode_series_n2,
+        spin_up_population_n2,
+    )
+
+    assert len(Delta1_values) == len(Delta2_values)
+    R = len(Delta1_values)
+    n_times = len(times)
+    p_traj = np.empty((R, n_times))
+    n_eff_1_traj = np.empty((R, n_times))
+    n_eff_2_traj = np.empty((R, n_times))
+    C_traj = np.empty((R, n_times))
+    norm_traj = np.empty((R, n_times))
+    psi0 = initial_state_up_vacuum_n2(n_max)
+
+    for i in range(R):
+        H = two_mode_hamiltonian(
+            Delta_1=float(Delta1_values[i]),
+            Delta_2=float(Delta2_values[i]),
+            g=g, n_max=n_max,
+        )
+        states = propagate_eigendecomp(H, psi0, times)
+        p_traj[i] = spin_up_population_n2(states, n_max)
+        n_eff_per_mode = n_eff_per_mode_series_n2(states, n_max)
+        n_eff_1_traj[i] = n_eff_per_mode[:, 0]
+        n_eff_2_traj[i] = n_eff_per_mode[:, 1]
+        C_traj[i] = aggregate_complexity_series(n_eff_per_mode)
+        norm_traj[i] = np.sum(np.abs(states) ** 2, axis=1).real
+
+    return {
+        "p": p_traj,
+        "n_eff_1": n_eff_1_traj,
+        "n_eff_2": n_eff_2_traj,
+        "C": C_traj,
+        "norm": norm_traj,
+    }
+
+
+def finite_difference_dpdDelta_n2(
+    Delta_1: float, Delta_2: float, g: float, n_max: int,
+    times: np.ndarray, eps: float = 1e-3,
+) -> tuple[np.ndarray, np.ndarray]:
+    """Central FD derivatives ``dp/dDelta_1`` and ``dp/dDelta_2`` at N=2."""
+    from hamiltonian import initial_state_up_vacuum_n2, two_mode_hamiltonian
+    from observables import spin_up_population_n2
+
+    psi0 = initial_state_up_vacuum_n2(n_max)
+
+    def _p(D1, D2):
+        H = two_mode_hamiltonian(Delta_1=D1, Delta_2=D2, g=g, n_max=n_max)
+        states = propagate_eigendecomp(H, psi0, times)
+        return spin_up_population_n2(states, n_max)
+
+    p_1p = _p(Delta_1 + eps, Delta_2)
+    p_1m = _p(Delta_1 - eps, Delta_2)
+    p_2p = _p(Delta_1, Delta_2 + eps)
+    p_2m = _p(Delta_1, Delta_2 - eps)
+    dpdD1 = (p_1p - p_1m) / (2.0 * eps)
+    dpdD2 = (p_2p - p_2m) / (2.0 * eps)
+    return dpdD1, dpdD2
+
+
 def run_ensemble_single_mode(
     Delta_values: np.ndarray,
     g: float,
@@ -127,6 +203,28 @@ def resolved_fraction(
 ) -> float:
     """Fraction of timesteps at which sigma^2_intrinsic > sigma^2_QPN(M)."""
     return float(np.mean(sigma2_intrinsic > sigma2_qpn))
+
+
+def resolved_per_cycle(
+    sigma2_intrinsic: np.ndarray,
+    sigma2_qpn: np.ndarray,
+    times: np.ndarray,
+    period: float,
+) -> float:
+    """Window-normalised alternative to ``resolved_fraction``.
+
+    Reports ``resolved_fraction * (t_max / period)`` = mean number of
+    resolved-cycle equivalents per characteristic period. Guardian middle
+    path for Stage 6: log this alongside the bare ``resolved_fraction``
+    so Stage 8 can choose between the two without re-running Cut B.
+
+    Returns ``float('inf')`` if ``period`` is zero or negative.
+    """
+    if period <= 0:
+        return float("inf")
+    frac = resolved_fraction(sigma2_intrinsic, sigma2_qpn)
+    t_span = float(times[-1] - times[0])
+    return frac * t_span / period
 
 
 def finite_difference_dpdDelta(

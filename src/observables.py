@@ -102,6 +102,63 @@ def mode_spectrum_at_time(state_vec: np.ndarray, n_max: int) -> np.ndarray:
     return np.sort(w)[::-1]
 
 
+def spin_up_population_n2(states: np.ndarray, n_max: int) -> np.ndarray:
+    """p(t) at N=2. States shape (n_times, 2*(n_max+1)^2) in kron(spin, m1, m2)."""
+    mode_dim = n_max + 1
+    up = states[:, : mode_dim * mode_dim]
+    return np.sum(np.abs(up) ** 2, axis=1).real
+
+
+def reduced_mode_matrices_n2(state_vec: np.ndarray, n_max: int):
+    """Return (rho_m1, rho_m2), each (n_max+1, n_max+1), for a single N=2 state.
+
+    rho^(k) = Tr_{spin, other mode} |psi><psi|.
+    """
+    mode_dim = n_max + 1
+    psi = state_vec.reshape(2, mode_dim, mode_dim)
+    # rho^(1)[n1, n1'] = sum_{s, n2} psi[s, n1, n2] * psi*[s, n1', n2]
+    rho_m1 = np.einsum("snq,sNq->nN", psi, psi.conj())
+    # rho^(2)[n2, n2'] = sum_{s, n1} psi[s, n1, n2] * psi*[s, n1, n2']
+    rho_m2 = np.einsum("snq,snQ->qQ", psi, psi.conj())
+    return rho_m1, rho_m2
+
+
+def n_eff_per_mode_series_n2(states: np.ndarray, n_max: int) -> np.ndarray:
+    """Per-mode n_eff^{(k)}(t) at N=2. Returns shape (n_times, 2)."""
+    n_times = states.shape[0]
+    out = np.empty((n_times, 2), dtype=float)
+    for i in range(n_times):
+        rho_m1, rho_m2 = reduced_mode_matrices_n2(states[i], n_max)
+        w1 = np.linalg.eigvalsh(rho_m1)
+        w2 = np.linalg.eigvalsh(rho_m2)
+        out[i, 0] = n_eff_from_eigenvalues(w1)
+        out[i, 1] = n_eff_from_eigenvalues(w2)
+    return out
+
+
+def aggregate_complexity_series(n_eff_per_mode: np.ndarray) -> np.ndarray:
+    """C(t) = sum_k log n_eff^{(k)}(t). Input shape (n_times, N)."""
+    return np.sum(np.log(np.maximum(n_eff_per_mode, 1e-30)), axis=1)
+
+
+def inverse_participation_ratio(rho: np.ndarray) -> float:
+    """IPR = sum_j lambda_j^2 of a density matrix's eigenvalue spectrum.
+
+    Guardian Stage 2 forward item / C3.4: compares against 1/n_eff^2 to
+    test whether the spectrum is peaked (IPR ~= 1/n_eff^2, clean count
+    reading) or spread (IPR != 1/n_eff^2, summary-scalar reading).
+    """
+    w = np.linalg.eigvalsh(rho)
+    w = np.clip(w, 0.0, 1.0)
+    return float(np.sum(w ** 2))
+
+
+def ipr_per_mode_at_time(state_vec: np.ndarray, n_max: int) -> tuple[float, float]:
+    """IPR^{(1)}, IPR^{(2)} at one time at N=2."""
+    rho_m1, rho_m2 = reduced_mode_matrices_n2(state_vec, n_max)
+    return inverse_participation_ratio(rho_m1), inverse_participation_ratio(rho_m2)
+
+
 def n_eff_analytic_Delta0(times: np.ndarray, g: float) -> np.ndarray:
     """Closed-form n_eff^{(1)}(t) for the voyage §2.1 Hamiltonian at Delta=0.
 
