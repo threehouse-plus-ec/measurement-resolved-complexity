@@ -39,6 +39,8 @@ $$H = \sum_{k=1}^{N} \Delta_k \, a_k^\dagger a_k + \sum_{k=1}^{N} g_k \, \sigma_
 
 with $\Delta_k = \omega_k - \omega_{\text{drive}}$ the spin–mode detuning.
 
+**Gauge convention.** Stokes & Nazir (2019) demonstrate that the presence of counter-rotating terms in ultrastrong and intermediate-coupling spin-boson Hamiltonians is gauge-dependent (see reconciliation §R3 item 8). The form above corresponds to the **dipole-gauge** spin-boson Hamiltonian in the rotating frame, in which counter-rotating terms are explicit and not gauge-removable without a Bogoliubov transformation. Stage 1 sign-off requires explicit documentation of this gauge choice in the run notes so that "no RWA" is unambiguous.
+
 ### 2.2 Reference units
 
 $\omega_{\text{ref}}$ sets the frequency unit; all times in units of $\omega_{\text{ref}}^{-1}$. Dimensional mapping to ²⁵Mg⁺ radial-mode frequencies (MHz range) deferred to writeup.
@@ -55,7 +57,7 @@ $|\Psi(0)\rangle = |\uparrow\rangle \otimes |0\rangle^{\otimes N}$ — spin exci
 | Detuning range (Cut A) | $\Delta / \omega_{\text{ref}} \in \{-0.5, -0.2, 0, +0.2, +0.5\}$ | Wider pedagogical range, 5 points |
 | Mode type | Radial | Contribute more equally than axial (no COM hierarchy); detuning sweep samples symmetric coupling landscape |
 | Fock truncation $n_{\max}$ | $12$ per mode (default); $18$ for on-resonance convergence check | See §2.5 |
-| Noise model | Trap-frequency drift only — Gaussian noise on $\Delta_k$, 1% RMS | Dominant experimental noise source in ²⁵Mg⁺ setup |
+| Noise model | Trap-frequency drift only — Gaussian noise on $\Delta_k$, 1% RMS | **Deliberate stress-test level**, not a realistic operating-point prediction. Published active-feedback trapped-ion platforms achieve $\sim 5 \times 10^{-6}$ short-term (Verifier P4 / D3); clock-grade systems approach $\sim 10^{-18}$. 1% RMS is chosen to force visible ensemble variance at modest $M$; Stage 3 writeup reframes accordingly (see `literature_search/reconciliation.md` §R3 item 9 and Standing item 6). |
 | Coupling noise | None (fixed $g_k$) | Simplifies noise structure; follow-up voyage can relax |
 | Ensemble size $R$ | 100 trajectories per parameter point | Balance statistical power vs. compute |
 | Shot budgets $M$ | $\{100, 1000, 10\,000\}$ | Spans realistic experimental range |
@@ -141,9 +143,12 @@ Each stage produces an inspectable artifact; no stage begins without sign-off on
 
 Minimal $N=1$ propagation engine. Verify against Jaynes–Cummings analytics at $\Delta=0, g/\omega = 0.1$ (vacuum Rabi oscillations at frequency $2g$ with counter-rotating corrections). Run convergence check: $n_{\max} = 12$ vs. $18$ on the on-resonance case, confirm $p(t)$ agreement to $\sim 10^{-4}$.
 
-**Artifact:** single figure showing $p(t)$ for the on-resonance case, overlaid with the $n_{\max}$ convergence comparison.
+**Artifact:** single figure showing $p(t)$ for the on-resonance case, overlaid with the $n_{\max}$ convergence comparison, plus a short `notes.md` including the gauge-convention statement.
 
-**Go/no-go:** propagator validated against known limit.
+**Go/no-go gates (all three must pass):**
+1. Propagator validated against JC analytics at $\Delta=0$ to $\sim 10^{-4}$ absolute in $p(t)$.
+2. $n_{\max}=12$ vs. $n_{\max}=18$ agreement to the same tolerance (per §2.5 and Standing item 1).
+3. **Gauge-convention statement** present in `stages/stage1_single_mode_propagator/notes.md`, stating: (i) the gauge adopted (per §2.1), (ii) where in the code the Hamiltonian assembly enforces it, (iii) what "no RWA" means *within* that gauge — per reconciliation §R3 item 8 / Standing item 5. Without this, "no RWA" is not yet unambiguous and Stage 2 cannot begin.
 
 ### Stage 2 — Observables layer
 
@@ -157,7 +162,13 @@ Add natural-occupation diagonalisation and $n_{\text{eff}}(t)$ computation on th
 
 Add the 100-realisation ensemble with $\Delta$-noise, compute $\sigma^2_{\text{intrinsic}}(t)$, compare to $\sigma^2_{\text{QPN}}(t; M)$ for three $M$ values. Still $N=1$, still on-resonance only.
 
-**Artifact:** three-panel figure showing $p(t)$, $n_{\text{eff}}(t)$, and $\sigma^2_{\text{intrinsic}}(t)$ vs. $\sigma^2_{\text{QPN}}(t; M)$ curves for $M \in \{100, 1000, 10^4\}$.
+**Primary artifact:** three-panel figure showing $p(t)$, $n_{\text{eff}}(t)$, and $\sigma^2_{\text{intrinsic}}(t)$ vs. $\sigma^2_{\text{QPN}}(t; M)$ curves for $M \in \{100, 1000, 10^4\}$.
+
+**Extended scope (added 2026-04-14, from reconciliation Standing items 1–2):**
+1. **QFI-reduction check.** On the same trajectory ensemble, compute the small-noise-limit Fisher-information criterion $(\partial_{\Delta}\langle \sigma_z \rangle)^2 \sigma_\Delta^2$ and compare against $\sigma^2_{\text{intrinsic}}(t)$. If they coincide across the simulation window, Scout's C2 candidate reduction holds and the operational-crosswalk novelty contracts along the third reduction path in reconciliation §R5. **Artifact:** an additional fourth panel or a companion figure overlaying the two.
+2. **BLP trace-distance cross-check.** Compute the BLP non-Markovianity witness (trace distance between the reduced spin states for a representative antipodal pair, its time-derivative sign-integral) on a sample trajectory. This tests the canonical-measure-applicability divergence (Scout: under-applicable in recurrent regimes; Verifier: well-defined) flagged in reconciliation R2. **Artifact:** companion figure and a one-paragraph note stating which reading the Stage 3 evidence supports.
+
+**Also:** Stage 3 writeup must reframe the 1% RMS noise level as a deliberate stress-test rather than a realistic operating-point prediction (§2.4 rationale note, reconciliation Standing item 6).
 
 ### Stage 4 — Go/no-go checkpoint on H2
 
