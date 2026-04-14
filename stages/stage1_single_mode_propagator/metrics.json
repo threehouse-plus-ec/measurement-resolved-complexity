@@ -1,0 +1,38 @@
+{
+  "gates": {
+    "gate1_analytic_anchor_Delta0_nmax60": {
+      "err": 4.22762802543275e-09,
+      "target": 0.0001,
+      "pass": true
+    },
+    "gate2_convergence_Delta0p05_nmax12_vs_18": {
+      "err": 1.3584983862280353e-06,
+      "target": 0.0001,
+      "pass": true
+    },
+    "jc_sanity_check": {
+      "err": 2.192690473634684e-15,
+      "target": 0.0001,
+      "pass": true
+    }
+  },
+  "norm_drift": {
+    "voyage_Delta0_nmax60": 1.4432899320127035e-15,
+    "voyage_Delta0p05_nmax12": 8.881784197001252e-16,
+    "voyage_Delta0p05_nmax18": 9.992007221626409e-16,
+    "jc_nmax18": 8.881784197001252e-16
+  },
+  "parameters": {
+    "g": 0.1,
+    "t_max": 50.0,
+    "n_times": 500,
+    "Delta_anchor": 0.0,
+    "n_max_anchor": 60,
+    "Delta_convergence": 0.15,
+    "n_max_convergence": [
+      12,
+      18
+    ],
+    "n_max_jc": 18
+  }
+}

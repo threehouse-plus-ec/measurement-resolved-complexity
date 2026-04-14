@@ -1,0 +1,20 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+
+# Virtual environments
+.venv/
+venv/
+env/
+
+# OS
+.DS_Store
+
+# IDE
+.vscode/
+.idea/
+
+# Stage outputs that should not be committed (finals are kept; in-progress not)
+figures/*_draft.pdf

@@ -54,7 +54,7 @@ $|\Psi(0)\rangle = |\uparrow\rangle \otimes |0\rangle^{\otimes N}$ — spin exci
 | Parameter | Value | Rationale |
 |---|---|---|
 | Coupling $g_k / \omega_{\text{ref}}$ | $0.1$ (all modes, fixed) | Intermediate regime, approaching ultrastrong boundary; counter-rotating terms non-negligible |
-| Detuning range (Cut A) | $\Delta / \omega_{\text{ref}} \in \{-0.5, -0.2, 0, +0.2, +0.5\}$ | Wider pedagogical range, 5 points |
+| Detuning range (Cut A) | ~~$\Delta / \omega_{\text{ref}} \in \{-0.5, -0.2, 0, +0.2, +0.5\}$~~ **Superseded 2026-04-14:** $\Delta / \omega_{\text{ref}} \in \{-0.5, -0.3, -0.15, +0.15, +0.3, +0.5\}$ | Six points, symmetric, evenly log-ish-spaced, three per sign. $\Delta = 0$ dropped because the §2.1 Hamiltonian with the $\|\uparrow\rangle\|0\rangle$ initial state drives unbounded coherent-amplitude growth at exactly zero detuning (see §2.5 and `PLAN_AMENDMENTS.md`). Inner sampling at $|\Delta|/\omega_{\text{ref}} = 0.15$ is the closest approach at which a *homogeneous* $n_{\max}=12$ default with $n_{\max}=18$ convergence check meets the Stage-1 error target (see §2.5 convergence table). H3 is re-read as a limit-claim probed by fitting a trend across the three points per sign and extrapolating *toward* zero, not as a point-claim at the limit itself. |
 | Mode type | Radial | Contribute more equally than axial (no COM hierarchy); detuning sweep samples symmetric coupling landscape |
 | Fock truncation $n_{\max}$ | $12$ per mode (default); $18$ for on-resonance convergence check | See §2.5 |
 | Noise model | Trap-frequency drift only — Gaussian noise on $\Delta_k$, 1% RMS | **Deliberate stress-test level**, not a realistic operating-point prediction. Published active-feedback trapped-ion platforms achieve $\sim 5 \times 10^{-6}$ short-term (Verifier P4 / D3); clock-grade systems approach $\sim 10^{-18}$. 1% RMS is chosen to force visible ensemble variance at modest $M$; Stage 3 writeup reframes accordingly (see `literature_search/reconciliation.md` §R3 item 9 and Standing item 6). |
@@ -66,9 +66,33 @@ $|\Psi(0)\rangle = |\uparrow\rangle \otimes |0\rangle^{\otimes N}$ — spin exci
 
 ### 2.5 Fock truncation justification
 
-At $g/\omega = 0.1$, on-resonance ($\Delta = 0$) vacuum-Rabi dynamics populates Fock states up to $n \sim 5$–$8$ at coherent-excursion peaks. Counter-rotating terms (no RWA) can push further. $n_{\max} = 12$ gives a safety margin of ~4 levels above expected population; $n_{\max} = 18$ convergence check in Stage 1 confirms this is sufficient.
+~~At $g/\omega = 0.1$, on-resonance ($\Delta = 0$) vacuum-Rabi dynamics populates Fock states up to $n \sim 5$–$8$ at coherent-excursion peaks. Counter-rotating terms (no RWA) can push further. $n_{\max} = 12$ gives a safety margin of ~4 levels above expected population; $n_{\max} = 18$ convergence check in Stage 1 confirms this is sufficient.~~
 
-Hilbert-space dimensions:
+**Superseded 2026-04-14 (Stage 1 prep).** The struck paragraph imported JC-Rabi folklore ("$n \sim 5\text{–}8$ at vacuum-Rabi coherent-excursion peaks") into the unbiased Rabi Hamiltonian of §2.1, where it does not apply. Correct analysis:
+
+- **At non-zero detuning** with the voyage initial state $|\uparrow\rangle|0\rangle$, each $\sigma_x$-sector sees $H_\pm = \Delta\, a^\dagger a \pm g(a + a^\dagger)$ — a harmonic oscillator with a constant linear force. Solving the Heisenberg equation $\dot a = -i\Delta\, a \mp i g$ with $a(0) = 0$ gives
+  $$\alpha_\pm(t) = \mp \frac{g}{\Delta}\bigl(1 - e^{-i\Delta t}\bigr), \qquad |\alpha_\pm(t)|^2 = \frac{4 g^2}{\Delta^2}\sin^2\!\tfrac{\Delta t}{2},$$
+  so the mode occupation in each branch is bounded by $\langle n \rangle_{\max} = 4 g^2 / \Delta^2$, reached at $\Delta t = \pi$. The factor of 4 is the interference between the drive and the free-oscillation phase; a naive "$\langle n \rangle \lesssim (g/|\Delta|)^2$" estimate (which does *not* account for this interference) underestimates the Fock requirement by a factor of 4.
+
+- **At exactly $\Delta = 0$** with the same initial state, the linear-force term is unopposed: $|\alpha(t)| = g t$ and $\langle n \rangle = (g t)^2$ is unbounded in $t$ — no finite Fock budget saturates. This point is excluded from Cut A (see §2.4 superseding note). It is not a property of the model alone; a different initial state (for example a $\sigma_x$-eigenstate tensor a matched coherent state) would give bounded dynamics. See Standing Question #12.
+
+- **Convergence data (not folklore, measured truncation-convergence against a reference at $n_{\max} + 20$, simulation window $t \in [0, 50\,\omega_{\text{ref}}^{-1}]$, $g/\omega_{\text{ref}} = 0.1$):**
+
+  | $|\Delta|/\omega_{\text{ref}}$ | $\langle n\rangle_{\max}$ | $n_{\max}=12$ | $n_{\max}=18$ | $n_{\max}=30$ | floor for $10^{-4}$ |
+  |---:|---:|---:|---:|---:|:---|
+  | 0.05 | 16.00 | $4.4\!\times\!10^{-3}$ | $2.8\!\times\!10^{-4}$ | $1.4\!\times\!10^{-7}$ | $n_{\max} \geq 30$ |
+  | 0.07 | 8.16 | $4.3\!\times\!10^{-3}$ | $1.6\!\times\!10^{-4}$ | $4.7\!\times\!10^{-10}$ | $n_{\max} \geq 30$ |
+  | 0.10 | 4.00 | $2.4\!\times\!10^{-3}$ | $1.9\!\times\!10^{-6}$ | $5.4\!\times\!10^{-15}$ | $n_{\max} \geq 18$ |
+  | 0.12 | 2.78 | $1.2\!\times\!10^{-4}$ | $9.5\!\times\!10^{-9}$ | $1.6\!\times\!10^{-15}$ | $n_{\max} \geq 18$ |
+  | **0.15** | **1.78** | $\mathbf{1.4\!\times\!10^{-6}}$ | $8.0\!\times\!10^{-12}$ | $2.7\!\times\!10^{-15}$ | $\mathbf{n_{\max} = 12}$ |
+  | 0.20 | 1.00 | $8.9\!\times\!10^{-9}$ | $2.6\!\times\!10^{-15}$ | $2.2\!\times\!10^{-15}$ | $n_{\max} = 12$ |
+  | 0.50 | 0.16 | $8.9\!\times\!10^{-16}$ | $4.4\!\times\!10^{-16}$ | $1.6\!\times\!10^{-15}$ | $n_{\max} = 12$ |
+
+  The innermost Cut A point $|\Delta|/\omega_{\text{ref}} = 0.15$ (bold row) is the closest approach at which a *homogeneous* $n_{\max} = 12$ default clears the $10^{-4}$ target with margin, with $n_{\max} = 18$ as the convergence check.
+
+- **Code-anchor validation** (Stage 1 gate 1) is run at $\Delta = 0$ with $n_{\max} = 60$ specifically for the analytic-Gaussian comparison (dim $= 122$, still trivial). This is a propagator-correctness test, not a sweep point.
+
+Hilbert-space dimensions for the sweep (bounded-amplitude cuts, $n_{\max} = 12$):
 - $N=1$: $2 \times 13 = 26$ (trivial)
 - $N=2$: $2 \times 169 = 338$ (trivial)
 - $N=3$: $2 \times 2197 = 4394$ (easy for sparse propagation)
@@ -129,7 +153,7 @@ Detuning $\Delta_k$ swept uniformly (three values: on-resonant, symmetric $\pm 0
 
 - **H1 (weak, trivially expected):** both $n_{\text{eff}}^{(k)}(t)$ and $\sigma^2_{\text{intrinsic}}(t)$ rise from their $t=0$ values. Not a real test.
 - **H2 (moderate):** temporal alignment of peaks/shoulders in $\mathcal{C}(t)$ and $\sigma^2_{\text{intrinsic}}(t)$. Moments of rapid complexity growth coincide with moments of large ensemble variance.
-- **H3 (strong, Ordinans-native):** as detuning is swept through resonance ($\Delta \to 0$), both $T_{\text{det}}(M)$ and the saturation value of $\mathcal{C}(t)$ scale in a correlated way. Off-resonant: short $T_{\text{det}}$, low $\mathcal{C}$. Near-resonant: long $T_{\text{det}}$, high $\mathcal{C}$.
+- **H3 (strong, Ordinans-native):** as detuning is swept through resonance ($\Delta \to 0$), both $T_{\text{det}}(M)$ and the saturation value of $\mathcal{C}(t)$ scale in a correlated way. Off-resonant: short $T_{\text{det}}$, low $\mathcal{C}$. Near-resonant: long $T_{\text{det}}$, high $\mathcal{C}$. **Reading (clarified 2026-04-14):** "$\Delta \to 0$" is a *limit* claim, probed by fitting a trend across the three per-sign points at $|\Delta|/\omega_{\text{ref}} \in \{0.15, 0.3, 0.5\}$ and extrapolating *toward* zero, not a *point* claim at $\Delta = 0$ exactly (see §2.4 and §2.5 superseding notes and Standing Question #12).
 
 **H3 is the voyage's real target.** H1 is sanity, H2 is suggestive, H3 is the signature worth bringing to the MCTDH-numerics and open-systems collaborators.
 
@@ -141,7 +165,9 @@ Each stage produces an inspectable artifact; no stage begins without sign-off on
 
 ### Stage 1 — Single-mode propagator
 
-Minimal $N=1$ propagation engine. Verify against Jaynes–Cummings analytics at $\Delta=0, g/\omega = 0.1$ (vacuum Rabi oscillations at frequency $2g$ with counter-rotating corrections). Run convergence check: $n_{\max} = 12$ vs. $18$ on the on-resonance case, confirm $p(t)$ agreement to $\sim 10^{-4}$.
+Minimal $N=1$ propagation engine. Verify against Jaynes–Cummings analytics at $\Delta=0, g/\omega = 0.1$ ~~(vacuum Rabi oscillations at frequency $2g$ with counter-rotating corrections)~~. Run convergence check: $n_{\max} = 12$ vs. $18$ on the on-resonance case, confirm $p(t)$ agreement to $\sim 10^{-4}$.
+
+**Superseded 2026-04-14 (Stage 1 prep).** The §2.1 Hamiltonian is the unbiased Rabi model (no $\sigma_z$ term in the rotating frame); at $\Delta = 0$ it does not produce $2g$ vacuum Rabi oscillations. The correct analytic target is $p(t) = \tfrac{1}{2}(1 + e^{-2 g^2 t^2})$ — a Gaussian monotonic decay from $1$ to $1/2$, derived by factorising $H = g \sigma_x (a + a^\dagger)$ in the $\sigma_x$ eigenbasis into conditional displacements of the mode vacuum, $|\alpha_\pm(t)\rangle$ with $\alpha_\pm(t) = \mp i g t$. Stage 1 validates against this form. A separate JC code-machinery sanity check — $p(t) = \cos^2(g t)$ on $H_{\text{JC}} = (\omega_0/2) \sigma_z + \omega a^\dagger a + g (\sigma_+ a + \sigma_- a^\dagger)$ at resonance (RWA) — is run alongside as an independent anchor.
 
 **Artifact:** single figure showing $p(t)$ for the on-resonance case, overlaid with the $n_{\max}$ convergence comparison, plus a short `notes.md` including the gauge-convention statement.
 
@@ -169,6 +195,8 @@ Add the 100-realisation ensemble with $\Delta$-noise, compute $\sigma^2_{\text{i
 2. **BLP trace-distance cross-check.** Compute the BLP non-Markovianity witness (trace distance between the reduced spin states for a representative antipodal pair, its time-derivative sign-integral) on a sample trajectory. This tests the canonical-measure-applicability divergence (Scout: under-applicable in recurrent regimes; Verifier: well-defined) flagged in reconciliation R2. **Artifact:** companion figure and a one-paragraph note stating which reading the Stage 3 evidence supports.
 
 **Also:** Stage 3 writeup must reframe the 1% RMS noise level as a deliberate stress-test rather than a realistic operating-point prediction (§2.4 rationale note, reconciliation Standing item 6).
+
+**Symmetry note for the on-resonance cut (added 2026-04-14, Stage 1 prep).** At $\Delta=0$, the §2.1 Hamiltonian has a $\Delta \to -\Delta$ symmetry (combined with a bosonic phase rotation) that forces $\partial_\Delta p\rvert_{\Delta=0} = 0$. The leading small-noise contribution to $\sigma^2_{\text{intrinsic}}(t)$ at $\Delta=0$ is therefore second-order in the detuning-noise width $s$, i.e. $\tfrac{1}{2}(\partial_\Delta^2 p)^2 s^4 + O(s^6)$, *not* first-order $(\partial_\Delta p)^2 s^2$. The QFI-reduction check above must compute the second-order term on the on-resonance cut; the first-order expression is the right object only at non-zero-$\Delta$ points of Cut A.
 
 ### Stage 4 — Go/no-go checkpoint on H2
 
@@ -251,6 +279,7 @@ All outcomes, including nulls, get recorded.
 9. **Noise spectrum, not only variance.** Gaussian $\Delta$-noise captures stochastic jitter; coherent periodic contamination (60 Hz power-line coupling) is a distinct and documented regime. At least one Stage 3 cut should include a coherent-modulation component. (P4 / D9)
 10. **Non-Markovianity formalism choice affects the quantitative witness.** BLP, RHP, QFI flow, coherent-information, and memory-kernel formalisms give different numerical signatures on the same dynamics. If Stage 8 invokes non-Markovianity, compute at least two formalisms on a sample trajectory for cross-check. (P5 / E1–E5)
 11. **Canonical-measure applicability — unresolved divergence.** Scout reads canonical non-Markov measures as *under-applicable* in recurrent regimes; Verifier reads them as *well-defined and recurrence-sensitive*. Stage 3 should compute BLP trace-distance on a sample trajectory alongside $T_{\text{det}}(M)$ to test whose reading holds in this parameter regime. (HM, from reconciliation R2)
+12. **Resonance-point accessibility (Stage 1 prep, 2026-04-14).** The §2.1 Hamiltonian with the voyage's $|\uparrow\rangle|0\rangle$ initial state has unbounded mode-amplitude growth at exactly $\Delta = 0$; no finite Fock budget saturates the numerical error. The current voyage probes the resonance *limit* via Cut A's innermost points at $|\Delta|/\omega_{\text{ref}} = 0.15$ (the closest approach at which a homogeneous $n_{\max}=12$ default meets the Stage-1 error target; see §2.5 convergence table), not the resonance *point*. Future voyages interested in on-resonance dynamics should consider (a) coherent-state initial conditions matched to one $\sigma_x$-branch (no runaway), (b) Krylov-propagator infrastructure allowing adaptive Fock cutoff at tighter detunings, or (c) explicit analytic limit-taking. The H3 claim in §5 is accordingly a limit-claim, not a point-claim. (HM, from Stage 1 prep; Guardian adjudication)
 
 **Parameter and scoping questions (retained from v1)**
 
