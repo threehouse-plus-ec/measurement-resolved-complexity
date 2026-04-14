@@ -78,3 +78,14 @@ def initial_state_up_vacuum(n_max: int) -> np.ndarray:
     psi = np.zeros(2 * (n_max + 1), dtype=complex)
     psi[0] = 1.0
     return psi
+
+
+def initial_state_down_vacuum(n_max: int) -> np.ndarray:
+    """``|down> (x) |0>``. Used only as the antipodal partner for Stage 3
+    BLP trace-distance cross-check (reconciliation §R2 / Standing item 11);
+    the voyage's observable runs use ``initial_state_up_vacuum`` throughout.
+    """
+    mode_dim = n_max + 1
+    psi = np.zeros(2 * mode_dim, dtype=complex)
+    psi[mode_dim] = 1.0
+    return psi

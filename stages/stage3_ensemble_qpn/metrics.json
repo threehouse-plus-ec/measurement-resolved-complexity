@@ -1,0 +1,74 @@
+{
+  "gates": {
+    "gate7_sigma2_convergence": {
+      "err": 1.9911707603813278e-06,
+      "target": 1e-05,
+      "pass": true
+    },
+    "gate8_qfi_reduction": {
+      "median_relative_deviation": 0.0698441666891485,
+      "max_relative_deviation": 0.9999862883037571,
+      "target_median": 0.1,
+      "pass": true
+    },
+    "gate9_blp_trace_distance": {
+      "max_D": 0.9999999999999997,
+      "N_BLP": 0.9713392995117155,
+      "sign_changes_dDdt": 2,
+      "reading": "well-defined, recurrences present"
+    }
+  },
+  "detectability_by_M": {
+    "100": {
+      "t_rise": 30.260521042084168,
+      "t_det_last_exceedance": 50.0,
+      "fraction_resolved": 0.398,
+      "window_saturated": true
+    },
+    "1000": {
+      "t_rise": 25.551102204408817,
+      "t_det_last_exceedance": 50.0,
+      "fraction_resolved": 0.492,
+      "window_saturated": true
+    },
+    "10000": {
+      "t_rise": 15.130260521042084,
+      "t_det_last_exceedance": 50.0,
+      "fraction_resolved": 0.7,
+      "window_saturated": true
+    }
+  },
+  "per_delta_short_time_fit": {
+    "Delta": 0.15,
+    "c2": 0.009999971376383008,
+    "c4": -0.00011837515149078968,
+    "c2_at_Delta0_reference": 0.010000000000000002,
+    "c4_at_Delta0_reference": -0.00010000000000000002,
+    "note": "c_2(Delta) shifts from g^2 as Delta grows; record per detuning in Stage 5 rather than assume constant"
+  },
+  "ensemble_summary_n_max_18": {
+    "p_mean_range": [
+      0.5149232098109467,
+      1.0
+    ],
+    "sigma2_max": 0.01786040318367549,
+    "n_eff_mean_range": [
+      1.0,
+      1.9989433042602411
+    ]
+  },
+  "parameters": {
+    "g": 0.1,
+    "Delta_nom": 0.15,
+    "sigma_Delta": 0.01,
+    "R": 100,
+    "t_max": 50.0,
+    "n_times": 500,
+    "M_values": [
+      100,
+      1000,
+      10000
+    ],
+    "seed": 20260414
+  }
+}
