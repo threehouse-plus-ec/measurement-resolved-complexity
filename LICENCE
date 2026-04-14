@@ -18,9 +18,8 @@ single licence applies uniformly across the repository.
 | `figures/` | Handbook (design / data assets) | MIT | MIT |
 | `README.md` | Coastline (framework / method) | CC BY-SA 4.0 | CC-BY-SA-4.0 |
 | `VOYAGE_PLAN.md` | Coastline | CC BY-SA 4.0 | CC-BY-SA-4.0 |
-| `TASK_CARD.md` | Coastline | CC BY-SA 4.0 | CC-BY-SA-4.0 |
 | `stages/` | Coastline (per-stage notes and protocols) | CC BY-SA 4.0 | CC-BY-SA-4.0 |
-| `literature_search/` | Coastline (reconciled findings) | CC BY-SA 4.0 | CC-BY-SA-4.0 |
+| `literature_search/` | Coastline (task cards, verifier/scout returns, reconciliation) | CC BY-SA 4.0 | CC-BY-SA-4.0 |
 | `docs/` | Coastline | CC BY-SA 4.0 | CC-BY-SA-4.0 |
 | `archive/` | Preserves the licence in force at deprecation | — | — |
 

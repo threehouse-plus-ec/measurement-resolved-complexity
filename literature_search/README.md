@@ -15,6 +15,6 @@ literature_search/
 └── reconciliation.md         # Harbourmaster synthesis + novelty calibration
 ```
 
-See `../TASK_CARD.md` for the full task specification, role split, and reconciliation protocol.
+See `TASK_CARD.md` (this folder) for the full task specification and role split; `HARBOURMASTER_TASK.md` for the reconciliation protocol; `reconciliation.md` for the Harbourmaster synthesis.
 
-**Key interpretive caution (from TASK_CARD v2):** absence of direct precedent in P2 or P3 does not by itself establish novelty. Genuine novelty, if any, is at the operational-recombination level — linking reduced-state complexity, ensemble sensitivity, and finite-shot detectability.
+**Key interpretive caution (from TASK_CARD v2, reaffirmed by reconciliation §R4):** absence of direct precedent in P2 or P3 does not by itself establish novelty. Genuine novelty, if any, is at the operational-recombination level — linking reduced-state complexity, ensemble sensitivity, and finite-shot detectability.

@@ -19,12 +19,11 @@ measurement-resolved-complexity/
 ├── README.md                   # this file (Coastline, CC BY-SA 4.0)
 ├── LICENCE                     # split-licence declaration (see Section 0.3)
 ├── VOYAGE_PLAN.md              # full Stage 0 plan, locked parameters
-├── TASK_CARD.md                # literature search card (Perplexity + Claude)
 ├── requirements.txt            # Python dependencies
 ├── .gitignore
 ├── src/                        # propagation and analysis code (MIT)
 ├── stages/                     # per-stage artifacts and writeups
-├── literature_search/          # Perplexity + Claude returns, reconciliation
+├── literature_search/          # task cards, Perplexity + Claude returns, reconciliation
 ├── figures/                    # per-stage inspection figures (MIT)
 ├── docs/                       # auxiliary documentation (per CD §14)
 └── archive/                    # deprecated artefacts (per CD §0.8, §15)
@@ -59,7 +58,7 @@ Each stage produces an inspectable artifact in `stages/` and `figures/` before t
 
 ## Literature search
 
-Running in parallel with Stage 1, not blocking it. Split between Perplexity (Verifier: citations, parameters, field conventions) and Claude (Scout: conceptual mapping, pitfalls). See `TASK_CARD.md`.
+Running in parallel with Stage 1, not blocking it. Split between Perplexity (Verifier: citations, parameters, field conventions) and Claude (Scout: conceptual mapping, pitfalls). See [`literature_search/TASK_CARD.md`](literature_search/TASK_CARD.md) for the v2 task specification and [`literature_search/reconciliation.md`](literature_search/reconciliation.md) for the Harbourmaster synthesis.
 
 ## Licence
 

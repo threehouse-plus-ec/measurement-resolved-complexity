@@ -225,7 +225,25 @@ All outcomes, including nulls, get recorded.
 
 ## 10. Standing questions (to revisit before Stage 5)
 
-- Realistic ²⁵Mg⁺ trap-frequency drift level: is 1% RMS defensible, or should this be calibrated against local experimental measurements?
+*This section was patched on 2026-04-14 by the Harbourmaster reconciliation of the literature search (see `literature_search/reconciliation.md` §R3). Source legend: (C3) = Scout C3 pitfall; (P#) = Verifier Pn return; (HM) = Harbourmaster-derived.*
+
+**Numerical and methodological pitfalls**
+
+1. **Fock-truncation entropy ceiling.** $n_{\text{eff}}^{(k)} \leq n_{\max}^{(k)}$ exactly. Physical saturation must be truncation-independent: run $n_{\max}$ and $2 n_{\max}$, confirm agreement. (C3.1; already inscribed as H1 convergence — reaffirmed.)
+2. **Mode-labelling ambiguity near degeneracy.** Report aggregate $\mathcal{C}(t) = \sum_k \log n_{\text{eff}}^{(k)}(t)$ as the primary invariant; per-mode curves only as decomposition. (C3.2)
+3. **Early-time $t^2$ universal growth.** Subtract the short-time coefficient before reading saturation structure. (C3.3)
+4. **Entropy is not complexity.** Inspect the eigenvalue spectrum of $\rho^{(k)}(t)$ directly in Stage 2; the "effective orbital count" reading requires a peaked spectrum. (C3.4)
+5. **MCTDH-adjacent lessons without running MCTDH.** Near-degenerate populations jitter; false-saturation plateaus can break under factor-2 window extension; SPF-style convergence is not observable convergence. (C3.5)
+6. **Normalisation drift.** Log $\|\psi(t)\|^2$ at every inspection point; reject runs above stated tolerance. (C3.6; already inscribed — reaffirmed.)
+7. **Initial-state dependence.** Hold the initial state fixed across stages and document; the complexity curves are state-conditioned, not Hamiltonian-conditioned. (C3.7)
+8. **Gauge convention for counter-rotating terms.** Gauge choice determines whether counter-rotating terms appear; fix and document the gauge before Stage 1 so that "no RWA" is unambiguous. (P1 / Stokes & Nazir 2019)
+9. **Noise spectrum, not only variance.** Gaussian $\Delta$-noise captures stochastic jitter; coherent periodic contamination (60 Hz power-line coupling) is a distinct and documented regime. At least one Stage 3 cut should include a coherent-modulation component. (P4 / D9)
+10. **Non-Markovianity formalism choice affects the quantitative witness.** BLP, RHP, QFI flow, coherent-information, and memory-kernel formalisms give different numerical signatures on the same dynamics. If Stage 8 invokes non-Markovianity, compute at least two formalisms on a sample trajectory for cross-check. (P5 / E1–E5)
+11. **Canonical-measure applicability — unresolved divergence.** Scout reads canonical non-Markov measures as *under-applicable* in recurrent regimes; Verifier reads them as *well-defined and recurrence-sensitive*. Stage 3 should compute BLP trace-distance on a sample trajectory alongside $T_{\text{det}}(M)$ to test whose reading holds in this parameter regime. (HM, from reconciliation R2)
+
+**Parameter and scoping questions (retained from v1)**
+
+- Realistic ²⁵Mg⁺ trap-frequency drift level. Verifier P4 indicates active-feedback trapped-ion platforms reach $\sim 5 \times 10^{-6}$ short-term; clock-grade systems approach $\sim 10^{-18}$. The voyage's "1% RMS" assumption is therefore a **deliberate stress-test level**, not a realistic operating-point prediction. Reframe in Stage 3 writeup. (HM)
 - Simulation window of $50 \, \omega_{\text{ref}}^{-1}$: does Stage 1 reveal the relevant dynamical timescales, or does the window need extending/contracting?
 - Cut C commensurability configs: execute all three, or drop one if Cut A + B already settle H3?
 
