@@ -1,0 +1,221 @@
+{
+  "sweep_parameters": {
+    "g": 0.1,
+    "sigma_Delta": 0.01,
+    "R": 100,
+    "n_max_default": 12,
+    "n_max_convergence": 18,
+    "t_max": 50.0,
+    "n_times": 500,
+    "M_values": [
+      100,
+      1000,
+      10000
+    ],
+    "Delta_set": [
+      -0.5,
+      -0.3,
+      -0.15,
+      0.15,
+      0.3,
+      0.5
+    ],
+    "parent_seed": 20260415,
+    "seeding": "np.random.SeedSequence(parent).spawn(n_points)"
+  },
+  "per_point": {
+    "-0.50": {
+      "C_bar": 0.24205820393845645,
+      "pearson_sigma2_absDCdt": 0.35207842251880034,
+      "timing_by_M": {
+        "100": {
+          "t_rise": 24.04809619238477,
+          "T_det": 50.0,
+          "f_resolved": 0.2
+        },
+        "1000": {
+          "t_rise": 8.917835671342687,
+          "T_det": 50.0,
+          "f_resolved": 0.67
+        },
+        "10000": {
+          "t_rise": 5.61122244488978,
+          "T_det": 50.0,
+          "f_resolved": 0.866
+        }
+      },
+      "qfi_median_rel_dev": 0.07650610767312291,
+      "qfi_max_rel_dev": 0.9983043345582503,
+      "c2": 0.009999822730361138,
+      "c4": -0.0003060091951305606,
+      "convergence_err_sigma2_12_vs_18": 3.7947076036992655e-18,
+      "gate11_pass": true
+    },
+    "-0.30": {
+      "C_bar": 0.40485574527192103,
+      "pearson_sigma2_absDCdt": 0.3717825902300696,
+      "timing_by_M": {
+        "100": {
+          "t_rise": 17.234468937875754,
+          "T_det": 48.79759519038076,
+          "f_resolved": 0.392
+        },
+        "1000": {
+          "t_rise": 11.52304609218437,
+          "T_det": 50.0,
+          "f_resolved": 0.706
+        },
+        "10000": {
+          "t_rise": 7.114228456913827,
+          "T_det": 50.0,
+          "f_resolved": 0.86
+        }
+      },
+      "qfi_median_rel_dev": 0.18183048125169193,
+      "qfi_max_rel_dev": 0.999981784362787,
+      "c2": 0.009999935271452138,
+      "c4": -0.00017415196526332627,
+      "convergence_err_sigma2_12_vs_18": 1.0667031494215884e-14,
+      "gate11_pass": true
+    },
+    "-0.15": {
+      "C_bar": 0.5621660055875547,
+      "pearson_sigma2_absDCdt": 0.4721481854530059,
+      "timing_by_M": {
+        "100": {
+          "t_rise": 29.759519038076153,
+          "T_det": 50.0,
+          "f_resolved": 0.408
+        },
+        "1000": {
+          "t_rise": 24.749498997995993,
+          "T_det": 50.0,
+          "f_resolved": 0.508
+        },
+        "10000": {
+          "t_rise": 12.024048096192384,
+          "T_det": 50.0,
+          "f_resolved": 0.762
+        }
+      },
+      "qfi_median_rel_dev": 0.21216004626416862,
+      "qfi_max_rel_dev": 1.158986516740598,
+      "c2": 0.009999971376382994,
+      "c4": -0.00011837515149078832,
+      "convergence_err_sigma2_12_vs_18": 1.039992203296508e-06,
+      "gate11_pass": true
+    },
+    "+0.15": {
+      "C_bar": 0.5616700552218203,
+      "pearson_sigma2_absDCdt": 0.49750073880913,
+      "timing_by_M": {
+        "100": {
+          "t_rise": 29.559118236472948,
+          "T_det": 50.0,
+          "f_resolved": 0.412
+        },
+        "1000": {
+          "t_rise": 24.649298597194388,
+          "T_det": 50.0,
+          "f_resolved": 0.51
+        },
+        "10000": {
+          "t_rise": 12.324649298597194,
+          "T_det": 50.0,
+          "f_resolved": 0.756
+        }
+      },
+      "qfi_median_rel_dev": 0.2303314658036008,
+      "qfi_max_rel_dev": 0.999980322708027,
+      "c2": 0.009999971376383008,
+      "c4": -0.00011837515149078968,
+      "convergence_err_sigma2_12_vs_18": 7.830688952808335e-07,
+      "gate11_pass": true
+    },
+    "+0.30": {
+      "C_bar": 0.40474221996647075,
+      "pearson_sigma2_absDCdt": 0.35388574541148154,
+      "timing_by_M": {
+        "100": {
+          "t_rise": 17.234468937875754,
+          "T_det": 48.59719438877756,
+          "f_resolved": 0.426
+        },
+        "1000": {
+          "t_rise": 11.322645290581162,
+          "T_det": 50.0,
+          "f_resolved": 0.714
+        },
+        "10000": {
+          "t_rise": 6.913827655310621,
+          "T_det": 50.0,
+          "f_resolved": 0.864
+        }
+      },
+      "qfi_median_rel_dev": 0.07404206314038796,
+      "qfi_max_rel_dev": 0.9999794199959555,
+      "c2": 0.009999935271452156,
+      "c4": -0.0001741519652634229,
+      "convergence_err_sigma2_12_vs_18": 8.93360906084606e-15,
+      "gate11_pass": true
+    },
+    "+0.50": {
+      "C_bar": 0.24486491506084673,
+      "pearson_sigma2_absDCdt": 0.3324247345169558,
+      "timing_by_M": {
+        "100": {
+          "t_rise": 24.148296593186373,
+          "T_det": 50.0,
+          "f_resolved": 0.21
+        },
+        "1000": {
+          "t_rise": 8.817635270541082,
+          "T_det": 50.0,
+          "f_resolved": 0.686
+        },
+        "10000": {
+          "t_rise": 5.511022044088176,
+          "T_det": 50.0,
+          "f_resolved": 0.87
+        }
+      },
+      "qfi_median_rel_dev": 0.12239303567400235,
+      "qfi_max_rel_dev": 0.998659396786677,
+      "c2": 0.009999822730361136,
+      "c4": -0.0003060091951305655,
+      "convergence_err_sigma2_12_vs_18": 6.288372600415926e-18,
+      "gate11_pass": true
+    }
+  },
+  "gate11_summary": {
+    "target": 1e-05,
+    "max_conv_err_across_points": 1.039992203296508e-06,
+    "all_pass": true
+  },
+  "h3_headline": {
+    "f_resolved_M1000_by_Delta": {
+      "-0.50": 0.67,
+      "-0.30": 0.706,
+      "-0.15": 0.508,
+      "+0.15": 0.51,
+      "+0.30": 0.714,
+      "+0.50": 0.686
+    },
+    "C_bar_by_Delta": {
+      "-0.50": 0.24205820393845645,
+      "-0.30": 0.40485574527192103,
+      "-0.15": 0.5621660055875547,
+      "+0.15": 0.5616700552218203,
+      "+0.30": 0.40474221996647075,
+      "+0.50": 0.24486491506084673
+    }
+  },
+  "qfi_watch": {
+    "description": "Guardian pre-Cut-A reminder 2: watch for QFI reduction degradation at innermost points (|Delta|=0.15) vs outer (|Delta|=0.5) as evidence of crossover toward second-order dominance.",
+    "median_rel_dev_by_abs_Delta": {
+      "0.50": 0.12239303567400235,
+      "0.30": 0.07404206314038796,
+      "0.15": 0.2303314658036008
+    }
+  }
+}
