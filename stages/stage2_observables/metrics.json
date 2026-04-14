@@ -1,0 +1,71 @@
+{
+  "gates": {
+    "gate4_convergence_Delta0p15_n_eff": {
+      "err": 1.7429455627659962e-06,
+      "target": 0.0001,
+      "pass": true
+    },
+    "gate4a_analytic_anchor_Delta0_n_eff": {
+      "err": 8.881784197001252e-16,
+      "target": 0.0001,
+      "pass": true
+    },
+    "gate5_schmidt_rank_at_N1": {
+      "t_probe": 24.949899799599198,
+      "rank_Delta0_nmax60": 2,
+      "rank_Delta0p15_nmax18": 2,
+      "tol": 1e-10,
+      "pass": true
+    },
+    "gate6_early_time_fit": {
+      "model": "lambda_2(t) = c2*t^2 + c4*t^4",
+      "c2_fit": 0.009999981909085425,
+      "c2_analytic_g_squared": 0.010000000000000002,
+      "c2_agreement": 1.809091457714851e-08,
+      "c4_fit": -9.976313513271252e-05,
+      "c4_analytic_minus_g_to_4": -0.00010000000000000002,
+      "c4_agreement": 2.3686486728750325e-07,
+      "relative_residual_on_window": 1.7768927708110798e-07,
+      "fit_window_t": [
+        0.10020040080160321,
+        0.5010020040080161
+      ],
+      "stage3_reference": {
+        "lambda_2_short_t": "c2*t^2 + c4*t^4 (Delta=0 analytic anchor)",
+        "c2": 0.009999981909085425,
+        "c4": -9.976313513271252e-05
+      },
+      "pass": true
+    }
+  },
+  "n_eff_summary": {
+    "Delta_0_nmax60": {
+      "initial": 1.0000000000000002,
+      "final": 2.0,
+      "max": 2.0000000000000004
+    },
+    "Delta_0p15_nmax18": {
+      "initial": 1.0000000000000002,
+      "final": 1.902803356772526,
+      "max": 1.999184067498224
+    }
+  },
+  "norm_drift": {
+    "Delta_0_nmax60": 1.4432899320127035e-15,
+    "Delta_0p15_nmax12": 8.881784197001252e-16,
+    "Delta_0p15_nmax18": 9.992007221626409e-16
+  },
+  "parameters": {
+    "g": 0.1,
+    "t_max": 50.0,
+    "n_times": 500,
+    "Delta_anchor": 0.0,
+    "n_max_anchor": 60,
+    "Delta_convergence": 0.15,
+    "n_max_convergence": [
+      12,
+      18
+    ],
+    "t_probe_spectrum": 24.949899799599198
+  }
+}
