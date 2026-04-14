@@ -1,0 +1,63 @@
+{
+  "verdict": {
+    "proceed_to_stage_5": true,
+    "C_saturates_at_N1": true,
+    "h2_alignment_visible": true,
+    "message": "H2 not cleanly testable at N=1 (C saturates to log 2 = Schmidt-rank-2 bound); proceed to Cut A (still N=1) and Stage 6 (N=2 where H2 lives); do NOT declare H2 failed from this run alone"
+  },
+  "peaks": {
+    "n_sigma2_peaks": 2,
+    "n_absDCdt_peaks": 2,
+    "n_C_peaks": 1,
+    "sigma2_peak_times": [
+      37.374749498998,
+      48.296593186372746
+    ],
+    "absDCdt_peak_times": [
+      38.07615230460922,
+      45.791583166332664
+    ],
+    "C_peak_times": [
+      20.140280561122246
+    ]
+  },
+  "alignment_sigma2_vs_absDCdt": {
+    "mean_abs_lag": 1.6032064128256494,
+    "median_abs_lag": 1.6032064128256494,
+    "mean_sigma2_peak_spacing": 10.921843687374746,
+    "lag_fraction_of_spacing": 0.14678899082568794
+  },
+  "correlations": {
+    "pearson_sigma2_vs_absDCdt": 0.4969087413037075,
+    "pearson_sigma2_vs_C": -0.5932169238689615,
+    "xcorr_lag_sigma2_vs_absDCdt": -1.3026052104208417,
+    "xcorr_max_normalised": 0.5269060279304697
+  },
+  "signal_ranges": {
+    "sigma2_range": [
+      1.0581559763755687e-08,
+      0.01786040318367549
+    ],
+    "C_range": [
+      0.21984835755301935,
+      0.6926186930651476
+    ],
+    "absDCdt_range": [
+      1.9262650363671696e-07,
+      0.12011829475374136
+    ],
+    "log_2_schmidt_bound": 0.6931471805599453,
+    "C_fraction_of_bound": 0.9992375537120834
+  },
+  "parameters": {
+    "g": 0.1,
+    "Delta_nom": 0.15,
+    "sigma_Delta": 0.01,
+    "R": 100,
+    "n_max": 18,
+    "t_max": 50.0,
+    "n_times": 500,
+    "seed": 20260414,
+    "resolvable_window_threshold": 1e-08
+  }
+}
