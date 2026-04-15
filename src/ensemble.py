@@ -88,6 +88,42 @@ def run_ensemble_two_mode(
     }
 
 
+def run_ensemble_three_mode(
+    D1_values: np.ndarray, D2_values: np.ndarray, D3_values: np.ndarray,
+    g: float, n_max: int, times: np.ndarray,
+) -> dict:
+    """N=3 ensemble. One propagation per (D1, D2, D3) triple."""
+    from hamiltonian import initial_state_up_vacuum_n3, three_mode_hamiltonian
+    from observables import (
+        aggregate_complexity_series,
+        n_eff_per_mode_series_n3,
+        spin_up_population_n3,
+    )
+
+    R = len(D1_values)
+    n_times = len(times)
+    p_traj = np.empty((R, n_times))
+    neff_traj = np.empty((R, n_times, 3))
+    C_traj = np.empty((R, n_times))
+    norm_traj = np.empty((R, n_times))
+    psi0 = initial_state_up_vacuum_n3(n_max)
+
+    for i in range(R):
+        H = three_mode_hamiltonian(
+            Delta_1=float(D1_values[i]), Delta_2=float(D2_values[i]),
+            Delta_3=float(D3_values[i]), g=g, n_max=n_max,
+        )
+        states = propagate_eigendecomp(H, psi0, times)
+        p_traj[i] = spin_up_population_n3(states, n_max)
+        neff_per = n_eff_per_mode_series_n3(states, n_max)
+        neff_traj[i] = neff_per
+        C_traj[i] = aggregate_complexity_series(neff_per)
+        norm_traj[i] = np.sum(np.abs(states) ** 2, axis=1).real
+
+    return {"p": p_traj, "n_eff_per_mode": neff_traj, "C": C_traj,
+            "norm": norm_traj}
+
+
 def finite_difference_dpdDelta_n2(
     Delta_1: float, Delta_2: float, g: float, n_max: int,
     times: np.ndarray, eps: float = 1e-3,

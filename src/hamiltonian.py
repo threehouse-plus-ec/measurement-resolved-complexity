@@ -133,3 +133,45 @@ def initial_state_up_vacuum_n2(n_max: int) -> np.ndarray:
     psi = np.zeros(dim, dtype=complex)
     psi[0] = 1.0
     return psi
+
+
+def three_mode_hamiltonian(
+    Delta_1: float, Delta_2: float, Delta_3: float, g: float, n_max: int
+) -> sp.csr_matrix:
+    """Voyage §2.1 Hamiltonian at N=3, equal coupling on all three modes.
+
+    Basis: kron(spin, m1, m2, m3). State index
+    (s, n1, n2, n3) -> s * md^3 + n1 * md^2 + n2 * md + n3, md = n_max + 1.
+    """
+    md = n_max + 1
+    a = annihilation(n_max)
+    a_dag = a.conj().T.tocsr()
+    num = (a_dag @ a).tocsr()
+    x_m = (a + a_dag).tocsr()
+    id_m = sp.eye(md, format="csr", dtype=complex)
+    id_spin = sp.eye(2, format="csr", dtype=complex)
+    sigma_x = sp.csr_matrix(np.array([[0.0, 1.0], [1.0, 0.0]], dtype=complex))
+
+    def _kk(A, B, C, D):
+        return sp.kron(
+            A, sp.kron(B, sp.kron(C, D, format="csr"), format="csr"),
+            format="csr",
+        )
+
+    H_mode1 = Delta_1 * _kk(id_spin, num, id_m, id_m)
+    H_mode2 = Delta_2 * _kk(id_spin, id_m, num, id_m)
+    H_mode3 = Delta_3 * _kk(id_spin, id_m, id_m, num)
+
+    H_c1 = g * _kk(sigma_x, x_m, id_m, id_m)
+    H_c2 = g * _kk(sigma_x, id_m, x_m, id_m)
+    H_c3 = g * _kk(sigma_x, id_m, id_m, x_m)
+
+    return (H_mode1 + H_mode2 + H_mode3 + H_c1 + H_c2 + H_c3).tocsr()
+
+
+def initial_state_up_vacuum_n3(n_max: int) -> np.ndarray:
+    """``|up> (x) |0>^⊗3`` at N=3, kron(spin, m1, m2, m3)."""
+    md = n_max + 1
+    psi = np.zeros(2 * md * md * md, dtype=complex)
+    psi[0] = 1.0
+    return psi

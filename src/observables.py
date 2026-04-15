@@ -159,6 +159,45 @@ def ipr_per_mode_at_time(state_vec: np.ndarray, n_max: int) -> tuple[float, floa
     return inverse_participation_ratio(rho_m1), inverse_participation_ratio(rho_m2)
 
 
+# ---------- N=3 ----------
+
+def spin_up_population_n3(states: np.ndarray, n_max: int) -> np.ndarray:
+    """p(t) at N=3."""
+    md = n_max + 1
+    up = states[:, : md * md * md]
+    return np.sum(np.abs(up) ** 2, axis=1).real
+
+
+def reduced_mode_matrices_n3(state_vec: np.ndarray, n_max: int):
+    """Return (rho_m1, rho_m2, rho_m3) at N=3, each (n_max+1, n_max+1)."""
+    md = n_max + 1
+    psi = state_vec.reshape(2, md, md, md)
+    rho_m1 = np.einsum("snqr,sNqr->nN", psi, psi.conj())
+    rho_m2 = np.einsum("snqr,snQr->qQ", psi, psi.conj())
+    rho_m3 = np.einsum("snqr,snqR->rR", psi, psi.conj())
+    return rho_m1, rho_m2, rho_m3
+
+
+def n_eff_per_mode_series_n3(states: np.ndarray, n_max: int) -> np.ndarray:
+    """Per-mode n_eff^{(k)}(t) at N=3. Returns shape (n_times, 3)."""
+    n_times = states.shape[0]
+    out = np.empty((n_times, 3), dtype=float)
+    for i in range(n_times):
+        rho_m1, rho_m2, rho_m3 = reduced_mode_matrices_n3(states[i], n_max)
+        out[i, 0] = n_eff_from_eigenvalues(np.linalg.eigvalsh(rho_m1))
+        out[i, 1] = n_eff_from_eigenvalues(np.linalg.eigvalsh(rho_m2))
+        out[i, 2] = n_eff_from_eigenvalues(np.linalg.eigvalsh(rho_m3))
+    return out
+
+
+def ipr_per_mode_at_time_n3(state_vec: np.ndarray, n_max: int):
+    """IPR per mode at one time, N=3."""
+    rho_m1, rho_m2, rho_m3 = reduced_mode_matrices_n3(state_vec, n_max)
+    return (inverse_participation_ratio(rho_m1),
+            inverse_participation_ratio(rho_m2),
+            inverse_participation_ratio(rho_m3))
+
+
 def n_eff_analytic_Delta0(times: np.ndarray, g: float) -> np.ndarray:
     """Closed-form n_eff^{(1)}(t) for the voyage §2.1 Hamiltonian at Delta=0.
 

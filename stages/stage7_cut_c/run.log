@@ -1,0 +1,67 @@
+====================================================================================
+Stage 7 -- Cut C (N=3) commensurability comparison
+====================================================================================
+Scope: R=30, n_max default=10, convergence check n_max=12
+Sweep parameter D = Delta_1 in [0.15, 0.3]
+Configs: ['C-Ra', 'C-Rb', 'C-Rc']
+Parent seed: 20260417
+====================================================================================
+
+--- C-Ra_D+0.15: golden (1:phi:phi^2), (Delta_1, Delta_2, Delta_3) = (+0.150, +0.243, +0.393) ---
+  C_bar = 1.362,  f_res(1e3) = 0.446,  f/cyc(slow) = 0.532
+  Pearson: growth = -0.177, series = -0.560, per-mode = ['+0.27', '+0.20', '+0.03']
+  Peak-offset complementarity: n sigma^2 peaks = 2, n C peaks = 3, mean |lag| = 7.57
+  Product test: C*sigma^2 mean = 1.541e-03, peak = 1.153e-02
+  IPR*n_eff at peak (t=9.52): mode 1 = 1.023, mode 2 = 1.047, mode 3 = 1.126
+  Convergence (p_10 vs p_12): 2.696e-05  PASS
+  Runtime: ensemble=673.2s, conv n=10: 22.3s, conv n=12: 101.0s
+
+--- C-Ra_D+0.30: golden (1:phi:phi^2), (Delta_1, Delta_2, Delta_3) = (+0.300, +0.485, +0.785) ---
+  C_bar = 0.789,  f_res(1e3) = 0.674,  f/cyc(slow) = 1.609
+  Pearson: growth = +0.124, series = -0.480, per-mode = ['+0.35', '+0.12', '+0.02']
+  Peak-offset complementarity: n sigma^2 peaks = 4, n C peaks = 5, mean |lag| = 3.36
+  Product test: C*sigma^2 mean = 5.088e-04, peak = 1.799e-03
+  IPR*n_eff at peak (t=34.27): mode 1 = 1.091, mode 2 = 1.138, mode 3 = 1.089
+  Convergence (p_10 vs p_12): 1.512e-10  PASS
+  Runtime: ensemble=677.1s, conv n=10: 23.5s, conv n=12: 103.1s
+
+--- C-Rb_D+0.15: sqrt (1:sqrt2:sqrt3), (Delta_1, Delta_2, Delta_3) = (+0.150, +0.212, +0.260) ---
+  C_bar = 1.523,  f_res(1e3) = 0.410,  f/cyc(slow) = 0.489
+  Pearson: growth = -0.167, series = -0.392, per-mode = ['+0.18', '+0.09', '-0.02']
+  Peak-offset complementarity: n sigma^2 peaks = 2, n C peaks = 2, mean |lag| = 9.02
+  Product test: C*sigma^2 mean = 5.087e-04, peak = 2.294e-03
+  IPR*n_eff at peak (t=13.13): mode 1 = 1.004, mode 2 = 1.016, mode 3 = 1.044
+  Convergence (p_10 vs p_12): 2.400e-05  PASS
+  Runtime: ensemble=676.3s, conv n=10: 22.4s, conv n=12: 99.6s
+
+--- C-Rb_D+0.30: sqrt (1:sqrt2:sqrt3), (Delta_1, Delta_2, Delta_3) = (+0.300, +0.424, +0.520) ---
+  C_bar = 0.912,  f_res(1e3) = 0.600,  f/cyc(slow) = 1.432
+  Pearson: growth = -0.093, series = -0.400, per-mode = ['+0.32', '+0.07', '+0.14']
+  Peak-offset complementarity: n sigma^2 peaks = 4, n C peaks = 3, mean |lag| = 7.44
+  Product test: C*sigma^2 mean = 5.440e-04, peak = 2.451e-03
+  IPR*n_eff at peak (t=7.21): mode 1 = 1.097, mode 2 = 1.130, mode 3 = 1.138
+  Convergence (p_10 vs p_12): 1.314e-10  PASS
+  Runtime: ensemble=685.6s, conv n=10: 22.9s, conv n=12: 102.2s
+
+--- C-Rc_D+0.15: rational (1:5/3:7/3), (Delta_1, Delta_2, Delta_3) = (+0.150, +0.250, +0.350) ---
+  C_bar = 1.399,  f_res(1e3) = 0.406,  f/cyc(slow) = 0.485
+  Pearson: growth = -0.173, series = -0.434, per-mode = ['+0.38', '+0.09', '-0.10']
+  Peak-offset complementarity: n sigma^2 peaks = 0, n C peaks = 3, mean |lag| = nan
+  Product test: C*sigma^2 mean = 8.945e-04, peak = 6.157e-03
+  IPR*n_eff at peak (t=10.32): mode 1 = 1.015, mode 2 = 1.043, mode 3 = 1.107
+  Convergence (p_10 vs p_12): 1.908e-05  PASS
+  Runtime: ensemble=690.6s, conv n=10: 22.2s, conv n=12: 99.2s
+
+--- C-Rc_D+0.30: rational (1:5/3:7/3), (Delta_1, Delta_2, Delta_3) = (+0.300, +0.500, +0.700) ---
+  C_bar = 0.796,  f_res(1e3) = 0.684,  f/cyc(slow) = 1.633
+  Pearson: growth = -0.113, series = -0.426, per-mode = ['+0.31', '+0.15', '+0.02']
+  Peak-offset complementarity: n sigma^2 peaks = 4, n C peaks = 3, mean |lag| = 7.31
+  Product test: C*sigma^2 mean = 5.750e-04, peak = 2.115e-03
+  IPR*n_eff at peak (t=31.46): mode 1 = 1.072, mode 2 = 1.138, mode 3 = 1.124
+  Convergence (p_10 vs p_12): 1.463e-10  PASS
+  Runtime: ensemble=673.0s, conv n=10: 22.3s, conv n=12: 99.4s
+
+====================================================================================
+Total Cut C runtime: 80.28 min
+
+Figure: figures/stage7_cutC_sweep.pdf
