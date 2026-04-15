@@ -4,7 +4,7 @@
 
 A bounded numerical exploration: spin coupled to few radial motional modes under detuning sweep, comparing intrinsic (entanglement-entropy-derived) complexity against measurement-resolved (variance-over-projection-noise) complexity.
 
-**Status (2026-04-14):** Stages 1–5 complete; Stage 6 (Cut B, $N=2$) cleared to begin. Plan at v0.2 after four absorbed amendments (v0.1 archived).
+**Status (2026-04-15):** Stages 1–7 complete; Stage 8 (synthesis) cleared conditional on PA-05 being committed to the plan first. Plan at v0.2 after four absorbed amendments (v0.1 archived); PA-05 (H2 per-mode / H3 complementarity) proposed in Stage 7 notes and pending Guardian sign-off.
 
 **Stance:** Exploratory, self-contained, Harbourmaster discipline. Not a replacement for MCTDH; not a validation of Ordinans; not a publication-ready study. It is an internal-use numerical exploration to sharpen a research proposal before committing collaborator time.
 
@@ -36,7 +36,9 @@ Two complexity measures, time-resolved, compared on the same trajectories:
 1. **Intrinsic (theorist-visible):** $\mathcal{C}(t) = \sum_k \log n_{\text{eff}}^{(k)}(t)$ with $n_{\text{eff}}^{(k)}(t) = \exp\bigl(S_{\text{vN}}[\rho^{(k)}(t)]\bigr)$. Aggregate reported as primary invariant; per-mode curves as decomposition.
 2. **Operational (experiment-visible):** $\sigma^2_{\text{intrinsic}}(t) = \mathrm{Var}_{\text{ensemble}}[p(t)]$ across $R=100$ realisations with Gaussian $\Delta$-noise, compared against the projection-noise floor $\sigma^2_{\text{QPN}}(t; M) = p(1-p)/M$. Headline scalar is $f_{\text{resolved}}(M)$ — the duty cycle of $\sigma^2_{\text{intrinsic}} > \sigma^2_{\text{QPN}}(M)$ over the simulation window. *(Replaces $T_{\text{det}}$-as-last-exceedance per Stage 3 finding; PA-03.)*
 
-**Central hypothesis (v0.2 §5).** Across the detuning sweep, $f_{\text{resolved}}(M)$ and the time-averaged complexity $\bar{\mathcal{C}}$ co-vary monotonically toward resonance. The claim is a *limit* claim probed via $|\Delta|/\omega_{\text{ref}} \in \{0.15, 0.30, 0.50\}$, not a point-claim at $\Delta = 0$ (inaccessible with the voyage's initial state; see VOYAGE_PLAN §2.5 and Standing Question 12).
+**Central hypothesis (v0.2 §5, with PA-05 reformulation pending from Stage 7).** Across the detuning sweep, $f_{\text{resolved}}(M)$ and the time-averaged complexity $\bar{\mathcal{C}}$ were hypothesised to co-vary monotonically toward resonance. Stages 5–7 show this is **not** what the voyage physics supports: the two measures probe **complementary** aspects — $\mathcal{C}$ peaks at maximum entanglement (spin reduced state at $p \approx 1/2$), $\sigma^2_{\text{intrinsic}}$ peaks at maximum state purity ($(\partial_\Delta p)^2$ large). H2 is **per-mode** at $N \geq 2$ (aggregate dilutes the signal); H3 is reframed as complementarity, not correlation. See [`stages/stage7_cut_c/notes.md`](stages/stage7_cut_c/notes.md) §6 for the PA-05 draft.
+
+The claim is a *limit* claim probed via $|\Delta|/\omega_{\text{ref}} \in \{0.15, 0.30, 0.50\}$, not a point-claim at $\Delta = 0$ (inaccessible with the voyage's initial state; see VOYAGE_PLAN §2.5 and Standing Question 12).
 
 See [`VOYAGE_PLAN.md`](VOYAGE_PLAN.md) for the full parameter lock, staging, hypotheses, and scope limits.
 
@@ -50,9 +52,9 @@ See [`VOYAGE_PLAN.md`](VOYAGE_PLAN.md) for the full parameter lock, staging, hyp
 | 3 | [Ensemble + QPN + QFI/BLP cross-checks](stages/stage3_ensemble_qpn/notes.md) | ✅ done | `cc1bf5e` | 4 gates PASS; R2 divergence resolved in Verifier's favour (BLP recurrence-sensitive). |
 | 4 | [H2 checkpoint](stages/stage4_checkpoint/notes.md) | ✅ done | `1e8d4a0` | Growth-framing alignment visible at Cut A inner ($r = 0.50$); full H2 deferred to $N \geq 2$. |
 | 5 | [Cut A: single-mode detuning sweep](stages/stage5_cut_a/notes.md) | ✅ done | `214ec62` | Gate 11 PASS; H2 monotone trend; H3 non-monotone (window-normalisation); QFI crossover at innermost confirmed. |
-| 6 | Cut B: two-mode configurations | ▸ cleared | — | — |
-| 7 | Cut C: three-mode, commensurability | pending | — | — |
-| 8 | Synthesis + novelty statement | pending | — | — |
+| 6 | [Cut B: two-mode configurations](stages/stage6_cut_b/notes.md) | ✅ done | `b71bf2a` | 3 gates PASS; H2 complementarity-per-mode finding; H3 non-monotonicity persists (beat-frequency mechanism); C3.4 IPR gate clean at $N=2$. |
+| 7 | [Cut C: three-mode, commensurability](stages/stage7_cut_c/notes.md) | ✅ done | `df08746` | Scoped to $R=30$, $n_{\max}=10$, 2 sweep points (runtime); all convergence PASS; H2 per-mode holds for innermost mode; aggregate H2 breaks at $N=3$; commensurability does not separate configs. |
+| 8 | Synthesis + novelty statement | ▸ cleared (conditional on PA-05) | — | — |
 
 Each stage produces an inspectable artifact in [`stages/`](stages/) and [`figures/`](figures/) before the next begins.
 
@@ -73,7 +75,9 @@ python3 -m venv .venv
 .venv/bin/python stages/stage1_single_mode_propagator/run.py  # and onward
 ```
 
-Each stage's `run.py` is self-contained, writes `metrics.json`, and renders its figure under [`figures/`](figures/). Stage 5 uses a seeded `np.random.SeedSequence(20260415).spawn(6)` for per-Δ RNGs; re-running regenerates exact metrics.
+Each stage's `run.py` is self-contained, writes `metrics.json`, and renders its figure under [`figures/`](figures/). Stages 5–7 use seeded `np.random.SeedSequence` spawn patterns (parent seeds `20260415`, `20260416`, `20260417` respectively); re-running regenerates exact metrics.
+
+Runtime note: Stages 1–6 complete within 1–3 minutes each. Stage 7 at $N=3$ is ~80 minutes under the reduced scope ($R=30$, $n_{\max}=10$, two sweep points); the full v0.2 spec at $n_{\max}=12$ would be ~34 hours due to $O(\text{dim}^3)$ dense-eigh cost, and switching to Krylov `expm_multiply` is deferred to a follow-up voyage.
 
 ## Licence
 
