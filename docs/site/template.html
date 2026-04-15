@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>$title$</title>
+  <link rel="stylesheet" href="style.css">
+  $if(mathjax)$
+  <script>
+    window.MathJax = {
+      tex: { inlineMath: [['$$','$$'], ['\\(','\\)']], displayMath: [['$$$$','$$$$'], ['\\[','\\]']] },
+      svg: { fontCache: 'global' }
+    };
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" defer></script>
+  $endif$
+</head>
+<body>
+  <header class="site-header">
+    <div class="wrap">
+      <a class="home" href="index.html">Sail</a>
+      <nav>
+        <a href="repo.html">Repository overview</a>
+        <a href="$repo_url$">GitHub</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="wrap">
+    $if(is_sail)$
+    <p class="eyebrow">T(h)reehouse +EC Sail · companion to <a href="$repo_url$">measurement-resolved-complexity</a></p>
+    $endif$
+    $body$
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap">
+      <p>
+        Source: <a href="$repo_url$/blob/$branch$/when-does-the-experiment-still-see.md">Sail essay</a> ·
+        <a href="$repo_url$">repository</a> ·
+        Licence: CC BY-SA 4.0 (essay) / MIT (code).
+      </p>
+    </div>
+  </footer>
+</body>
+</html>

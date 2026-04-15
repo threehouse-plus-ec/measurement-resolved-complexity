@@ -15,12 +15,16 @@ single licence applies uniformly across the repository.
 |------|-------|---------|------|
 | `src/` | Infrastructure (code and tooling) | MIT | MIT |
 | `requirements.txt` | Infrastructure | MIT | MIT |
+| `.github/` | Infrastructure (CI configuration) | MIT | MIT |
+| `docs/site/` | Infrastructure (static-site build scripts and stylesheet) | MIT | MIT |
+| `docs/site/assets/` | Handbook (Model-B copies of CD assets) | MIT | MIT |
 | `figures/` | Handbook (design / data assets) | MIT | MIT |
 | `README.md` | Coastline (framework / method) | CC BY-SA 4.0 | CC-BY-SA-4.0 |
 | `VOYAGE_PLAN.md` | Coastline | CC BY-SA 4.0 | CC-BY-SA-4.0 |
 | `stages/` | Coastline (per-stage notes and protocols) | CC BY-SA 4.0 | CC-BY-SA-4.0 |
 | `literature_search/` | Coastline (task cards, verifier/scout returns, reconciliation) | CC BY-SA 4.0 | CC-BY-SA-4.0 |
-| `docs/` | Coastline | CC BY-SA 4.0 | CC-BY-SA-4.0 |
+| `docs/` (non-`site/`) | Coastline | CC BY-SA 4.0 | CC-BY-SA-4.0 |
+| `when-does-the-experiment-still-see.md` | Sail (authored essay); relicensed to CC BY-SA 4.0 by Harbourmaster decision (more permissive than default CD §0.3 Sail licence of CC BY-NC-SA 4.0) | CC BY-SA 4.0 | CC-BY-SA-4.0 |
 | `archive/` | Preserves the licence in force at deprecation | — | — |
 
 If a path is not listed, the enclosing folder's licence applies. When a folder

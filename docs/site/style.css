@@ -1,0 +1,189 @@
+/*
+ * Sail site stylesheet.
+ * Licence: MIT (Infrastructure / Handbook layer per CD §0.3).
+ * Design tokens come from ./assets/tokens.css (copy of the canonical
+ * T(h)reehouse +EC tokens.css; see assets/SOURCE.md).
+ * Per CD §0.11, do not redefine token values locally.
+ */
+@import url("assets/tokens.css");
+
+* { box-sizing: border-box; }
+
+html, body {
+  margin: 0;
+  padding: 0;
+  background: var(--warm-white);
+  color: var(--ink);
+  font-family: var(--font-serif);
+  font-size: 18px;
+  line-height: 1.6;
+}
+
+.wrap {
+  max-width: var(--measure);
+  margin: 0 auto;
+  padding: 0 var(--gutter);
+}
+
+.site-header {
+  border-bottom: 1px solid var(--grid);
+  padding: 1rem 0;
+  background: var(--warm-white);
+}
+
+.site-header .wrap {
+  max-width: 60rem;
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.site-header .home {
+  font-weight: 600;
+  font-size: 1.1rem;
+  text-decoration: none;
+  color: var(--ink);
+  letter-spacing: 0.02em;
+  font-family: var(--font-mono);
+}
+
+.site-header nav a {
+  margin-left: 1rem;
+  color: var(--stone);
+  text-decoration: none;
+  font-size: 0.95rem;
+  font-family: var(--font-mono);
+}
+
+.site-header nav a:hover {
+  color: var(--sea);
+  text-decoration: underline;
+}
+
+main.wrap {
+  padding-top: 2.5rem;
+  padding-bottom: 4rem;
+}
+
+.eyebrow {
+  font-size: 0.85rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--stone);
+  margin-top: 0;
+  margin-bottom: 2rem;
+  font-family: var(--font-mono);
+}
+
+.eyebrow a { color: var(--stone); }
+
+h1 {
+  font-size: 2rem;
+  line-height: 1.2;
+  margin: 0 0 0.75rem;
+  font-weight: 600;
+}
+
+h2 {
+  font-size: 1.35rem;
+  margin-top: 2.5rem;
+  margin-bottom: 0.75rem;
+  font-weight: 600;
+  border-bottom: 1px solid var(--grid);
+  padding-bottom: 0.3rem;
+}
+
+h3 {
+  font-size: 1.1rem;
+  margin-top: 1.75rem;
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+}
+
+p { margin: 0 0 1rem; }
+
+a {
+  color: var(--sea);
+  text-decoration: underline;
+  text-decoration-thickness: 0.5px;
+  text-underline-offset: 2px;
+}
+
+a:hover { text-decoration-thickness: 1.5px; }
+
+a:focus-visible {
+  outline: var(--focus-ring);
+  outline-offset: var(--focus-offset);
+}
+
+strong { font-weight: 600; }
+
+blockquote {
+  border-left: 3px solid var(--grid);
+  padding: 0.1rem 1rem;
+  color: var(--stone);
+  margin: 1rem 0;
+}
+
+code {
+  font-family: var(--font-mono);
+  font-size: 0.9em;
+  background: var(--parchment);
+  padding: 0.1em 0.35em;
+  border-radius: 3px;
+}
+
+pre {
+  background: var(--parchment);
+  padding: 1rem;
+  overflow-x: auto;
+  border-radius: 4px;
+  font-size: 0.9rem;
+  line-height: 1.5;
+}
+
+pre code { background: none; padding: 0; }
+
+table {
+  border-collapse: collapse;
+  margin: 1rem 0;
+  font-size: 0.9rem;
+  display: block;
+  overflow-x: auto;
+}
+
+th, td {
+  border: 1px solid var(--grid);
+  padding: 0.4rem 0.7rem;
+  text-align: left;
+}
+
+th { background: var(--parchment); font-weight: 600; }
+
+hr {
+  border: none;
+  border-top: 1px solid var(--grid);
+  margin: 2.5rem 0;
+}
+
+ol, ul { padding-left: 1.5rem; }
+li { margin-bottom: 0.35rem; }
+
+.site-footer {
+  border-top: 1px solid var(--grid);
+  padding: 1.5rem 0;
+  color: var(--stone);
+  font-size: 0.85rem;
+  font-family: var(--font-mono);
+}
+
+.site-footer .wrap { max-width: 60rem; }
+.site-footer p { margin: 0; }
+.site-footer a { color: var(--stone); }
+
+@media (max-width: 600px) {
+  html, body { font-size: 17px; }
+  .site-header .wrap { flex-direction: column; align-items: flex-start; gap: 0.25rem; }
+  .site-header nav a { margin-left: 0; margin-right: 1rem; }
+}

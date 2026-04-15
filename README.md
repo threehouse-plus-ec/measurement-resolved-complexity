@@ -4,7 +4,9 @@
 
 A bounded numerical exploration: spin coupled to few radial motional modes under detuning sweep, comparing intrinsic (entanglement-entropy-derived) complexity against measurement-resolved (variance-over-projection-noise) complexity.
 
-**Status (2026-04-15):** **Voyage closed.** All 8 stages complete; Stage 8 synthesis committed with writeup, revised novelty paragraph, and collaborator handoff notes. Plan at v0.2 + PA-05. Repo ready for collaborator handoffs ([MCTDH-numerics, open-systems](stages/stage8_synthesis/collaborator_notes.md)). A post-Stage-8 audit (2026-04-15) found and fixed five integrity issues (synthesis figure noise model; N=2 per-mode H2 overclaim; invalid JSON in three metrics files; README staleness; doc inconsistencies); all fixes applied.
+**Public Sail (companion essay):** [`when-does-the-experiment-still-see.md`](when-does-the-experiment-still-see.md) — a short essay pitching the voyage's findings (complexity vs. measurement-visible variance as complementary clocks on the same dynamics). CC BY-SA 4.0; designed to be readable standalone, without repo context or framework adoption. The essay is the landing page of the [public site](#public-site).
+
+**Status (2026-04-15):** **Voyage closed.** All 8 stages complete; Stage 8 synthesis committed with writeup, revised novelty paragraph, and collaborator handoff notes. Plan at v0.2 + PA-05. Repo ready for collaborator handoffs ([MCTDH-numerics, open-systems](stages/stage8_synthesis/collaborator_notes.md)). A post-Stage-8 audit (2026-04-15) found and fixed five integrity issues (synthesis figure noise model; N=2 per-mode H2 overclaim; invalid JSON in three metrics files; README staleness; doc inconsistencies); all fixes applied. A Sail essay and auto-deployed GitHub Pages site were added the same day (see below).
 
 **Stance:** Exploratory, self-contained, Harbourmaster discipline. Not a replacement for MCTDH; not a validation of Ordinans; not a publication-ready study. It is an internal-use numerical exploration to sharpen a research proposal before committing collaborator time.
 
@@ -16,17 +18,19 @@ A bounded numerical exploration: spin coupled to few radial motional modes under
 
 ```
 measurement-resolved-complexity/
-├── README.md                   # this file (Coastline, CC BY-SA 4.0)
-├── LICENCE                     # split-licence declaration (see Section 0.3)
-├── VOYAGE_PLAN.md              # v0.2 plan: parameters, hypotheses, gates, standing questions
-├── PLAN_AMENDMENTS.md          # amendment register (PA-01..04 absorbed at v0.2)
-├── requirements.txt            # Python dependencies (numpy, scipy, matplotlib, qutip)
-├── src/                        # propagation and analysis code (MIT)
-├── stages/                     # per-stage artifacts, run scripts, notes, metrics
-├── literature_search/          # task cards, Perplexity/Claude returns, reconciliation
-├── figures/                    # per-stage inspection figures (MIT)
-├── docs/                       # auxiliary documentation (per CD §14)
-└── archive/                    # deprecated artefacts (per CD §0.8, §15), incl. VOYAGE_PLAN-v0.1
+├── README.md                                  # this file (Coastline, CC BY-SA 4.0)
+├── LICENCE                                    # split-licence declaration (see Section 0.3)
+├── VOYAGE_PLAN.md                             # v0.2 plan: parameters, hypotheses, gates, standing questions
+├── PLAN_AMENDMENTS.md                         # amendment register (PA-01..05)
+├── when-does-the-experiment-still-see.md      # public Sail essay (CC BY-SA 4.0)
+├── requirements.txt                           # Python dependencies (numpy, scipy, matplotlib, qutip)
+├── src/                                       # propagation and analysis code (MIT)
+├── stages/                                    # per-stage artifacts, run scripts, notes, metrics
+├── literature_search/                         # task cards, Perplexity/Claude returns, reconciliation
+├── figures/                                   # per-stage inspection figures (MIT)
+├── docs/                                      # auxiliary documentation (per CD §14); docs/site/ builds the public site
+├── .github/workflows/                         # CI: pages.yml builds and deploys the public Sail site
+└── archive/                                   # deprecated artefacts (per CD §0.8, §15), incl. VOYAGE_PLAN-v0.1
 ```
 
 ## Voyage overview
@@ -56,7 +60,7 @@ See [`VOYAGE_PLAN.md`](VOYAGE_PLAN.md) for the full parameter lock, staging, hyp
 | 7 | [Cut C: three-mode, commensurability](stages/stage7_cut_c/notes.md) | ✅ done | `df08746` | Scoped to $R=30$, $n_{\max}=10$, 2 sweep points (runtime); all convergence PASS; H2 per-mode holds for innermost mode; aggregate H2 breaks at $N=3$; commensurability does not separate configs. |
 | 8 | [Synthesis + novelty statement](stages/stage8_synthesis/writeup.md) | ✅ done | `392f642` + audit patch | Cross-stage synthesis figure; revised Scout-C5 novelty paragraph (operational-recombination register, 286 words with evidence inventory); collaborator handoff notes for MCTDH-numerics and open-systems. |
 
-Each stage produces an inspectable artifact in [`stages/`](stages/) and [`figures/`](figures/) before the next begins.
+Each stage produces an inspectable artifact in [`stages/`](stages/) and [`figures/`](figures/) before the next begins. See [`stages/README.md`](stages/README.md) for the per-stage artifact layout convention.
 
 ## Literature search
 
@@ -79,9 +83,17 @@ Each stage's `run.py` is self-contained, writes `metrics.json`, and renders its 
 
 Runtime note: Stages 1–6 complete within 1–3 minutes each. Stage 7 at $N=3$ is ~80 minutes under the reduced scope ($R=30$, $n_{\max}=10$, two sweep points); the full v0.2 spec at $n_{\max}=12$ would be ~34 hours due to $O(\text{dim}^3)$ dense-eigh cost, and switching to Krylov `expm_multiply` is deferred to a follow-up voyage.
 
+## Public site
+
+The Sail essay ([`when-does-the-experiment-still-see.md`](when-does-the-experiment-still-see.md)) is published as the landing page of a static site auto-deployed to GitHub Pages: **<https://threehouse-plus-ec.github.io/measurement-resolved-complexity/>**.
+
+The build is defined in [`.github/workflows/pages.yml`](.github/workflows/pages.yml) and runs on every push to `main` that touches the Sail, `README.md`, or [`docs/site/`](docs/site/). It uses pandoc (with MathJax) to render the essay and the README, and rewrites intra-repo links to point at their `blob`/`tree` URLs on GitHub. To build locally: `bash docs/site/build.sh` (requires `pandoc` ≥ 3.0 and `python3`), then open `_site/index.html`. See [`docs/site/README.md`](docs/site/README.md) for details.
+
+One-time Pages enablement is required on the GitHub repo (*Settings → Pages → Source: GitHub Actions*).
+
 ## Licence
 
-Split architecture per the T(h)reehouse +EC Corporate Design blueprint (Section 0.3). Code and assets (MIT) under [`src/`](src/), [`figures/`](figures/); framework and methodological documents (CC BY-SA 4.0) for [`VOYAGE_PLAN.md`](VOYAGE_PLAN.md), [`stages/`](stages/), [`literature_search/`](literature_search/), [`docs/`](docs/). See [`LICENCE`](LICENCE) for the per-folder map.
+Split architecture per the T(h)reehouse +EC Corporate Design blueprint (Section 0.3). Code, CI, and design assets (MIT) under [`src/`](src/), [`figures/`](figures/), [`docs/site/`](docs/site/), and [`.github/`](.github/); framework and methodological documents (CC BY-SA 4.0) for [`VOYAGE_PLAN.md`](VOYAGE_PLAN.md), [`stages/`](stages/), [`literature_search/`](literature_search/), and the non-`site/` contents of [`docs/`](docs/); the Sail essay [`when-does-the-experiment-still-see.md`](when-does-the-experiment-still-see.md) is CC BY-SA 4.0 (Harbourmaster relicensing from the CD-default Sail licence CC BY-NC-SA 4.0 to a more permissive licence, per CD §0.3). See [`LICENCE`](LICENCE) for the full per-folder map. The `docs/site/assets/` folder contains Model-B copies of `cd-rules` assets with provenance in [`docs/site/assets/SOURCE.md`](docs/site/assets/SOURCE.md).
 
 ## Acknowledgements
 

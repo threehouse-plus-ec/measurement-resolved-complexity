@@ -21,3 +21,6 @@ env/
 
 # Stage outputs that should not be committed (finals are kept; in-progress not)
 figures/*_draft.pdf
+
+# GitHub Pages build output (produced by .github/workflows/pages.yml)
+_site/
