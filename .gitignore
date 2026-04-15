@@ -16,5 +16,8 @@ env/
 .vscode/
 .idea/
 
+# Claude Code harness state (never commit)
+.claude/
+
 # Stage outputs that should not be committed (finals are kept; in-progress not)
 figures/*_draft.pdf
