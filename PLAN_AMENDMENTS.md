@@ -29,12 +29,13 @@ On 2026-04-14 the four amendments PA-01..PA-04 (plus the pre-amendment reconcili
 | # | Date | Section(s) | Amendment | Driver | Style |
 |---|---|---|---|---|---|
 | PA-05 | 2026-04-15 | §3 (observables), §5 (H2/H3), §6 (Stage 8) | **H2 reformulated per-mode; H3 retired-as-correlation and replaced by complementarity.** Four-stage convergent evidence (Stages 4–7) across $N = 1, 2, 3$: aggregate H2 breaks at $N = 3$ while per-mode H2 holds for the dominantly-coupled mode at all $N$; $f_{\text{resolved}}$–$\bar{\mathcal{C}}$ correlation is non-monotone across the sweep (Stages 5, 6, 7), with $f_{\text{resolved}}$ tracking beat-frequency / oscillation-cycle count and $\bar{\mathcal{C}}$ tracking resonance proximity — independent drivers, no single-scalar rescaling. The replacement hypothesis: $\mathcal{C}$ and $\sigma^2_{\text{intrinsic}}$ probe **complementary** moments of the dynamics ($\mathcal{C}$ at maximum entanglement, $\sigma^2$ at maximum purity / $(\partial_\Delta p)^2$-large state-transition moments). Speculative quantitative uncertainty-relation test $\mathcal{C}\cdot\sigma^2$ returned null at Stage 7; the finding stays structural-descriptive. Scope: $g/\omega = 0.1$, $|\Delta|/\omega \in [0.15, 0.5]$, $|\uparrow\rangle|0\rangle$ initial state, $N \leq 3$, closed system. Not a universal physics claim. | Stages 4–7 convergent evidence; Stage 6/7 notes; Guardian Stage 7 sign-off | Strikethrough + superseding note in-place |
+| PA-06 | 2026-04-15 | Sail (`when-does-the-experiment-still-see.md`) | Sail addendum naming platform-independence solo follow-up; no scope change to v1.0 voyage findings. | Stage 8 post-synthesis; author-initiated documentation | Additive insertion (new section) |
 
 ## Tripwire status (post-v0.2)
 
-- Amendments committed since v0.2 reset: **1** (PA-05).
-- Buffer before next v0.3 consideration: **2** further amendments.
-- Pending candidates: none at v0.2.1 commit. Stage 8 synthesis runs against v0.2 + PA-05.
+- Amendments committed since v0.2 reset: **2** (PA-05, PA-06).
+- Buffer before next v0.3 consideration: **1** further amendment.
+- Pending candidates: none at PA-06 commit. PA-06 is documentation-only (Sail addendum), not a plan change.
 
 ## What v0.2 does not claim resolved
 

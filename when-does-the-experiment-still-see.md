@@ -78,6 +78,12 @@ Two measures of what's happening in a small quantum system — one accessible to
 
 The question "when does the experiment still see something happening?" has a richer answer than "until decoherence kills it." In a closed bounded system, the answer is: the experiment sees something happening at *different moments* than the theorist sees maximum complexity — and the interplay between those moments is where the interesting structure lives.
 
+## A possible solo follow-up
+
+The complementarity finding and the QFI-reduction boundary are stated for a specific Hamiltonian class — a single spin coupled to a small number of bosonic modes, intermediate coupling, no rotating-wave approximation — realised here in trapped-ion parameters. A bounded next step, pursuable without additional numerical infrastructure, is to check whether the same complementarity signature appears in adjacent realisations of the same Hamiltonian class: cavity-QED and circuit-QED parameter regimes, computed by exact diagonalisation in the same bounded-mode setting.
+
+If the signature is platform-independent, the finding belongs to the Hamiltonian class rather than to any particular physical system — and the Sail's claims gain breadth without requiring scaled-up mode counts. If it is not, the trapped-ion specificity becomes itself a finding worth understanding. Either outcome is informative. This follow-up is bounded, requires no new collaboration, and is listed in the repository's deferred-items register; it will be pursued as time permits and reported as a companion Sail.
+
 ---
 
 ## Anchor references
