@@ -95,9 +95,12 @@ def main():
                               rec["timing_by_M"]["1000"]["f_resolved"],
                               rec["C_bar"]))
 
-    # Stage 6 (N=2): per-config aggregate growth; for per-mode, use inner-mode
-    # approx via the aggregate value (B1/B3 symmetric so all-mode average ~
-    # per-mode; B4 is the decoupling case).
+    # Stage 6 (N=2): only AGGREGATE growth-framing Pearson is committed in
+    # metrics (per-mode r_k at N=2 was not decomposed -- audit gap, see
+    # novelty_statement.md §Scope caveats). The figure labels these bars
+    # "N=2 aggregate" and colours them accordingly; the top-right panel's
+    # per-mode claim is specifically about N=1 and N=3 where per-mode was
+    # measured.
     stage6_cfgs = metrics["stage6"]["configs"]
     stage6_points = []
     for label, rec in stage6_cfgs.items():
@@ -144,41 +147,50 @@ def main():
     )
     ax_ps.grid(alpha=0.3)
 
-    # (TR) per-mode r across all points
-    # Collect aggregated view: inner-mode r at N=1,2,3 + aggregate r at N=3
+    # (TR) H2 growth-framing Pearson across stages, honest-label variant.
+    # N=1 bars ARE per-mode (aggregate=mode-1 trivially at N=1).
+    # N=2 bars are AGGREGATE only (Stage 6 metrics did not commit per-mode
+    # decomposition; see audit, novelty_statement.md §Scope caveats).
+    # N=3 bars: show both per-mode-1 and aggregate separately.
     labels = []
     r_values = []
     colors = []
     for lab, r, *_ in stage5_points:
-        labels.append(lab); r_values.append(r); colors.append("C0")
+        labels.append(lab.replace("N=1 ", "N=1 mode-1 "))
+        r_values.append(r); colors.append("C0")
     for lab, r, *_ in stage6_points:
-        labels.append(lab); r_values.append(r); colors.append("C1")
+        labels.append(lab.replace("N=2 ", "N=2 agg "))
+        r_values.append(r); colors.append("C1")
     for lab, r, *_ in stage7_points_mode1:
-        labels.append(lab); r_values.append(r); colors.append("C2")
-    # aggregate N=3 for contrast
+        labels.append(lab.replace("N=3 ", "N=3 mode-1 "))
+        r_values.append(r); colors.append("C2")
     for lab, r in stage7_points_agg:
-        labels.append(lab); r_values.append(r); colors.append("C3")
+        labels.append(lab.replace("N=3 agg ", "N=3 agg "))
+        r_values.append(r); colors.append("C3")
 
     x = np.arange(len(labels))
     ax_rk.bar(x, r_values, color=colors, alpha=0.85, edgecolor="k", lw=0.4)
     ax_rk.axhline(0, color="k", lw=0.6)
     ax_rk.set_xticks(x)
     ax_rk.set_xticklabels(labels, rotation=55, ha="right", fontsize=7)
-    ax_rk.set_ylabel(r"$r(\sigma^2,\,|\dot{\mathcal{C}}|)$  (dominant-mode / aggregate)")
+    ax_rk.set_ylabel(
+        r"$r(\sigma^2,\,|\dot{\mathcal{C}}|)$"
+        "\n(mode-1 where decomposed; aggregate otherwise)"
+    )
     ax_rk.set_title(
-        r"(TR) H2 per-mode growth-framing (PA-05): $r_{\mathrm{mode\,1}}$ "
-        r"positive at all $N$; aggregate dilutes at $N = 3$"
+        "(TR) H2 growth-framing Pearson across stages\n"
+        "measured per-mode at $N=1, 3$; $N=2$ aggregate only (audit gap)"
     )
     ax_rk.set_ylim(-0.4, 0.7)
     ax_rk.grid(alpha=0.3, axis="y")
-    # Legend proxy
+    # Legend proxy distinguishing per-mode vs aggregate
     from matplotlib.patches import Patch
     ax_rk.legend(handles=[
-        Patch(facecolor="C0", label="N=1 (Stage 5)"),
-        Patch(facecolor="C1", label="N=2 (Stage 6)"),
+        Patch(facecolor="C0", label="N=1 per-mode (Stage 5; aggregate = mode-1)"),
+        Patch(facecolor="C1", label="N=2 aggregate only (Stage 6)"),
         Patch(facecolor="C2", label="N=3 mode-1 (Stage 7)"),
         Patch(facecolor="C3", label="N=3 aggregate (Stage 7)"),
-    ], loc="upper right", frameon=False, fontsize=8)
+    ], loc="upper right", frameon=False, fontsize=7)
 
     # (BL) f_resolved vs C_bar scatter — the H3 null
     all_points = stage5_points + stage6_points + stage7_points_mode1
