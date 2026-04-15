@@ -47,7 +47,7 @@
         }
       },
       "period_slow": 41.88790204786391,
-      "period_beat": Infinity,
+      "period_beat": null,
       "n_cycles_slow": 1.193662073189215,
       "n_cycles_beat": 0.0,
       "qfi_median_rel_dev": 0.2542689503123837,

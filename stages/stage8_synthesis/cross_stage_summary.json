@@ -85,32 +85,32 @@
     {
       "stage": "N=3",
       "Delta_min": 0.15,
-      "qfi_rel_dev": NaN
+      "qfi_rel_dev": null
     },
     {
       "stage": "N=3",
       "Delta_min": 0.3,
-      "qfi_rel_dev": NaN
+      "qfi_rel_dev": null
     },
     {
       "stage": "N=3",
       "Delta_min": 0.15,
-      "qfi_rel_dev": NaN
+      "qfi_rel_dev": null
     },
     {
       "stage": "N=3",
       "Delta_min": 0.3,
-      "qfi_rel_dev": NaN
+      "qfi_rel_dev": null
     },
     {
       "stage": "N=3",
       "Delta_min": 0.15,
-      "qfi_rel_dev": NaN
+      "qfi_rel_dev": null
     },
     {
       "stage": "N=3",
       "Delta_min": 0.3,
-      "qfi_rel_dev": NaN
+      "qfi_rel_dev": null
     }
   ],
   "H3_null_scatter": [

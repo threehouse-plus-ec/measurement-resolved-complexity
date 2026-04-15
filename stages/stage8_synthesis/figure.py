@@ -58,10 +58,18 @@ def regen_n2_phase_space():
     t_max = 50.0
     n_times = 500
     times = np.linspace(0.0, t_max, n_times)
-    ss = np.random.SeedSequence(2026_04_16).spawn(1)[0]
-    rng = np.random.default_rng(ss)
-    d1 = sample_detunings(0.15, sigma_Delta, R, rng=rng)
-    d2 = sample_detunings(0.15, sigma_Delta, R, rng=np.random.default_rng(ss))
+    # Reproduce Stage 6 B1 exactly. Stage 6 used:
+    #   parent = SeedSequence(20260416), child_ss = parent.spawn(4),
+    #   then run_config derived a second rng from the first via
+    #   rng.bit_generator.random_raw() so d1 and d2 are INDEPENDENT
+    #   draws. B1 is child index 0.
+    child_ss = np.random.SeedSequence(2026_04_16).spawn(4)
+    ss_B1 = child_ss[0]
+    rng1 = np.random.default_rng(ss_B1)
+    d1 = sample_detunings(0.15, sigma_Delta, R, rng=rng1)
+    rng2 = np.random.default_rng(rng1.bit_generator.random_raw())
+    d2 = sample_detunings(0.15, sigma_Delta, R, rng=rng2)
+    assert not np.allclose(d1, d2), "d1 and d2 must be independent draws"
     ens = run_ensemble_two_mode(d1, d2, g=g, n_max=18, times=times)
     p_var = ensemble_variance(ens["p"])
     C = ensemble_mean(ens["C"])
@@ -255,8 +263,33 @@ def main():
             for p in stage7_points_mode1
         ],
     }
-    (HERE / "cross_stage_summary.json").write_text(json.dumps(summary, indent=2))
+    (HERE / "cross_stage_summary.json").write_text(
+        safe_json_dumps(summary, indent=2)
+    )
     return summary
+
+
+def safe_json_dumps(obj, **kwargs):
+    """JSON-dump with non-finite floats replaced by null (RFC 8259 compliant).
+
+    Python's ``json.dumps`` emits bare ``NaN`` / ``Infinity`` by default,
+    which are invalid JSON. Walk the object and replace non-finite floats
+    with None before serialising.
+    """
+    import math
+
+    def _clean(x):
+        if isinstance(x, float):
+            if not math.isfinite(x):
+                return None
+            return x
+        if isinstance(x, dict):
+            return {k: _clean(v) for k, v in x.items()}
+        if isinstance(x, (list, tuple)):
+            return [_clean(v) for v in x]
+        return x
+
+    return json.dumps(_clean(obj), **kwargs)
 
 
 if __name__ == "__main__":

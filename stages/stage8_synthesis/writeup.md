@@ -13,7 +13,7 @@
 
 ## 1. Executive summary (three sentences)
 
-The voyage hypothesised that an intrinsic complexity measure $\bar{\mathcal{C}}$ (aggregate reduced-state von Neumann entropy) and an operational scalar $f_{\text{resolved}}(M)$ (duty cycle of ensemble variance above quantum-projection-noise) would co-vary monotonically across a detuning sweep in a bounded spin + $N \in \{1, 2, 3\}$ mode system at intermediate coupling without RWA — a correlation that, if confirmed, would operationalise a cross-walk between theorist-visible entanglement and experimentalist-visible variance. The central hypothesis is **empirically falsified** (Stages 5, 6, 7): $\bar{\mathcal{C}}$ and $f_{\text{resolved}}$ have independent drivers (proximity to resonance versus beat-frequency-driven oscillation count) and do not correlate across the sweep. The voyage's positive finding — which emerged from the same data but was not predicted in advance — is that intrinsic and operational measures probe **complementary** dynamical moments, with $\mathcal{C}$-peaks at maximum entanglement and $\sigma^2$-peaks at maximum parameter sensitivity; per-mode growth-framing $r(\sigma^2, |\dot{\mathcal{C}}^{(k)}|) > 0$ holds consistently for the dominantly-coupled mode across $N = 1, 2, 3$ and settles the empirical H2 claim at the per-mode rather than aggregate level.
+The voyage hypothesised that an intrinsic complexity measure $\bar{\mathcal{C}}$ (aggregate reduced-state von Neumann entropy) and an operational scalar $f_{\text{resolved}}(M)$ (duty cycle of ensemble variance above quantum-projection-noise) would co-vary monotonically across a detuning sweep in a bounded spin + $N \in \{1, 2, 3\}$ mode system at intermediate coupling without RWA — a correlation that, if confirmed, would operationalise a cross-walk between theorist-visible entanglement and experimentalist-visible variance. The central hypothesis is **empirically falsified** (Stages 5, 6, 7): $\bar{\mathcal{C}}$ and $f_{\text{resolved}}$ have independent drivers (proximity to resonance versus beat-frequency-driven oscillation count) and do not correlate across the sweep. The voyage's positive finding — which emerged from the same data but was not predicted in advance — is that intrinsic and operational measures probe **complementary** dynamical moments, with $\mathcal{C}$-peaks at maximum entanglement and $\sigma^2$-peaks at maximum parameter sensitivity; per-mode growth-framing $r(\sigma^2, |\dot{\mathcal{C}}^{(k)}|) > 0$ holds consistently for the dominantly-coupled mode across **measured** data at $N = 1$ (Stage 5, 6 Cut A points, mode-1 $\equiv$ aggregate at $N=1$) and $N = 3$ (Stage 7, 6 per-mode-decomposed points), with $N = 2$ aggregate evidence consistent with the per-mode story but per-mode decomposition not committed in metrics (see [`novelty_statement.md`](novelty_statement.md) §Scope caveats).
 
 ## 2. Parameters (final, locked at v0.2 + PA-05)
 
@@ -23,7 +23,7 @@ The voyage hypothesised that an intrinsic complexity measure $\bar{\mathcal{C}}$
 | Detuning range (Cut A) | $\{-0.5, -0.3, -0.15, +0.15, +0.3, +0.5\}$ |
 | Cut B configurations | $(+0.15, +0.15)$, $(+0.15, +0.3)$, $(-0.15, +0.15)$, $(+0.15, +0.5)$ |
 | Cut C configurations | C-Ra $(1, \varphi, \varphi^2)$; C-Rb $(1, \sqrt2, \sqrt3)$; C-Rc $(1, 5/3, 7/3)$ |
-| Cut C detuning sweep | $D \in \{+0.15, +0.30\}$ (PA-05 reduced scope) |
+| Cut C detuning sweep | $D \in \{+0.15, +0.30\}$ (runtime-constrained scope, Stage 7 §1; unrelated to PA-05) |
 | Gauge | Dipole-gauge, rotating frame at drive, $\sigma_z$ absent |
 | Initial state | $|\uparrow\rangle \otimes |0\rangle^{\otimes N}$ |
 | Simulation window | $t \in [0, 50\,\omega_{\text{ref}}^{-1}]$, 500 timesteps |
@@ -39,7 +39,7 @@ The voyage hypothesised that an intrinsic complexity measure $\bar{\mathcal{C}}$
 |---|---|---|
 | H1 | Both observables rise from $t = 0$ values | **Holds trivially** (Stages 1–7). Not a real test. |
 | H2 (aggregate growth-framing) | ~~$r(\sigma^2, \|\dot{\mathcal{C}}\|) > 0$ across sweep~~ | **Breaks at $N \geq 2$ in asymmetric configs, fully at $N = 3$** (Stages 6 B4, 7 Cut C). |
-| H2 (per-mode, PA-05 replacement) | $r(\sigma^2, \|\dot{\mathcal{C}}^{(k)}\|) > 0$ for dominantly-coupled mode $k$ | **Holds at $N = 1, 2, 3$**; $r_{\text{mode 1}} \in [+0.18, +0.55]$ across 16 data points (Stages 4–7). |
+| H2 (per-mode, PA-05 replacement) | $r(\sigma^2, \|\dot{\mathcal{C}}^{(k)}\|) > 0$ for dominantly-coupled mode $k$ | **Holds at $N = 1$ and $N = 3$ (measured)**; $r_{\text{mode 1}} \in [+0.18, +0.50]$ across 13 per-mode-decomposed data points (Stages 4, 5, 7). At $N = 2$ (Stage 6) only aggregate $r$ was committed; consistent with per-mode picture in 3/4 configurations but direct per-mode Pearson not decomposed in metrics — flagged as audit gap. |
 | H3 (scalar correlation) | ~~$f_{\text{resolved}}(M) \propto \bar{\mathcal{C}}$ across sweep~~ | **Empirically falsified** across Stages 5, 6, 7. Non-monotone with beat-frequency mechanism. |
 | H3 (complementarity, PA-05 replacement) | $\mathcal{C}$ and $\sigma^2$ probe conjugate dynamical moments; their cross-walk is the empirical content | **Structurally confirmed** (Stages 4–7). Quantitative $\mathcal{C}\cdot\sigma^2$ uncertainty-relation test **null** at Stage 7. |
 
@@ -50,7 +50,7 @@ The voyage hypothesised that an intrinsic complexity measure $\bar{\mathcal{C}}$
 - At each mode $k$, $\mathcal{C}^{(k)}(t) = \log n_{\text{eff}}^{(k)}(t)$ peaks when the single-mode reduced state is maximally mixed — the spin-reduced state sits near $p \approx 1/2$ at the same moments.
 - $\sigma^2_{\text{intrinsic}}(t) \approx (\partial_\Delta p)^2 \sigma_\Delta^2$ (at leading order in small noise, at outer detunings) peaks when $(\partial_\Delta p)^2$ is large, which occurs at state-transition moments where $p$ is near 0 or 1 — i.e. at minimum entanglement.
 - Peaks of $|\dot{\mathcal{C}}^{(k)}|$ (rapid-growth moments) align temporally with peaks of $\sigma^2_{\text{intrinsic}}$ when mode $k$ is the dominantly-coupled one; series-direct $r(\sigma^2, \mathcal{C})$ is consistently negative ($-0.78$ to $-0.39$) capturing the phase offset between entanglement-peak and sensitivity-peak.
-- The aggregate $\mathcal{C}$ dilutes when modes contribute asymmetrically (Stage 6 B4, Stage 7 Cut C) because weakly-coupled modes contribute uncorrelated variance to $|\dot{\mathcal{C}}|$; the per-mode signal survives the dilution.
+- The aggregate $\mathcal{C}$ dilutes when modes contribute asymmetrically (Stage 6 B4, Stage 7 Cut C) because weakly-coupled modes contribute uncorrelated variance to $|\dot{\mathcal{C}}|$; at $N = 3$, where per-mode decomposition was explicitly computed, the mode-1 signal survives the aggregate dilution. At $N = 2$, only the aggregate was recorded — the per-mode claim there rests on the B1/B3/B2 positive aggregate values and B4's negative-aggregate decoupling pattern, both consistent with the per-mode story but not directly decomposed.
 
 ### 4.2 QFI-reduction regime boundary (physics finding)
 

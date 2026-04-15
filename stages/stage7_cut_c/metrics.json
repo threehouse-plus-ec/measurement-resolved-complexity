@@ -389,7 +389,7 @@
         "n_sigma2_peaks": 0,
         "n_C_peaks": 3,
         "lags": [],
-        "mean_abs_lag": NaN
+        "mean_abs_lag": null
       },
       "complementarity_product": {
         "mean": 0.0008945135936181978,

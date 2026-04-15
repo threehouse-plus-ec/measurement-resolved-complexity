@@ -4,7 +4,7 @@
 
 A bounded numerical exploration: spin coupled to few radial motional modes under detuning sweep, comparing intrinsic (entanglement-entropy-derived) complexity against measurement-resolved (variance-over-projection-noise) complexity.
 
-**Status (2026-04-15):** Stages 1–7 complete; Stage 8 (synthesis) cleared conditional on PA-05 being committed to the plan first. Plan at v0.2 after four absorbed amendments (v0.1 archived); PA-05 (H2 per-mode / H3 complementarity) proposed in Stage 7 notes and pending Guardian sign-off.
+**Status (2026-04-15):** **Voyage closed.** All 8 stages complete; Stage 8 synthesis committed with writeup, revised novelty paragraph, and collaborator handoff notes. Plan at v0.2 + PA-05. Repo ready for collaborator handoffs ([MCTDH-numerics, open-systems](stages/stage8_synthesis/collaborator_notes.md)). A post-Stage-8 audit (2026-04-15) found and fixed five integrity issues (synthesis figure noise model; N=2 per-mode H2 overclaim; invalid JSON in three metrics files; README staleness; doc inconsistencies); all fixes applied.
 
 **Stance:** Exploratory, self-contained, Harbourmaster discipline. Not a replacement for MCTDH; not a validation of Ordinans; not a publication-ready study. It is an internal-use numerical exploration to sharpen a research proposal before committing collaborator time.
 
@@ -54,7 +54,7 @@ See [`VOYAGE_PLAN.md`](VOYAGE_PLAN.md) for the full parameter lock, staging, hyp
 | 5 | [Cut A: single-mode detuning sweep](stages/stage5_cut_a/notes.md) | ✅ done | `214ec62` | Gate 11 PASS; H2 monotone trend; H3 non-monotone (window-normalisation); QFI crossover at innermost confirmed. |
 | 6 | [Cut B: two-mode configurations](stages/stage6_cut_b/notes.md) | ✅ done | `b71bf2a` | 3 gates PASS; H2 complementarity-per-mode finding; H3 non-monotonicity persists (beat-frequency mechanism); C3.4 IPR gate clean at $N=2$. |
 | 7 | [Cut C: three-mode, commensurability](stages/stage7_cut_c/notes.md) | ✅ done | `df08746` | Scoped to $R=30$, $n_{\max}=10$, 2 sweep points (runtime); all convergence PASS; H2 per-mode holds for innermost mode; aggregate H2 breaks at $N=3$; commensurability does not separate configs. |
-| 8 | Synthesis + novelty statement | ▸ cleared (conditional on PA-05) | — | — |
+| 8 | [Synthesis + novelty statement](stages/stage8_synthesis/writeup.md) | ✅ done | `392f642` + audit patch | Cross-stage synthesis figure; revised Scout-C5 novelty paragraph (operational-recombination register, 286 words with evidence inventory); collaborator handoff notes for MCTDH-numerics and open-systems. |
 
 Each stage produces an inspectable artifact in [`stages/`](stages/) and [`figures/`](figures/) before the next begins.
 
